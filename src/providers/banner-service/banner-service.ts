@@ -20,7 +20,12 @@ export class BannerServiceProvider extends BaseProvider {
   }
 
   getBanner(): Observable<any> {
-    return this.get('/banner/getBanner.php')
+    return this.get('/banner/getBanner.php?type=1')
+      .map((res: Response) => res.json());
+  }
+
+  getSlider(): Observable<any> {
+    return this.get('/banner/getBanner.php?type=2')
       .map((res: Response) => res.json());
   }
 }        

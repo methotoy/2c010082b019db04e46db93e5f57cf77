@@ -18,7 +18,10 @@ import { BannerServiceProvider } from './../../providers/banner-service/banner-s
 export class HomePage {
   @ViewChild(Slides) slides: Slides;
 
-  public banners: Observable<Array<any>>
+  public banners: Observable<Array<any>>;
+  public sliders: Observable<Array<any>>;
+
+  public email: string;
 
   constructor(
     public navCtrl: NavController,
@@ -28,6 +31,7 @@ export class HomePage {
 
   ionViewWillEnter() {
     this.banners = this.bannerService.getBanner();
+    this.sliders = this.bannerService.getSlider();
   }
 
   ionViewDidLoad() {

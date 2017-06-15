@@ -1,18 +1,42 @@
 <ion-header>
-  <ion-navbar>
-    <button ion-button menuToggle>
+	<ion-navbar color="dark">
+		<button ion-button menuToggle>
       <ion-icon name="menu"></ion-icon>
     </button>
-    <ion-title>Pizza Crust</ion-title>
-  </ion-navbar>
+		<ion-title>Pizza Crust</ion-title>
+	</ion-navbar>
 </ion-header>
 
-<ion-content no-padding>
-  <ion-slides *ngIf="banners"  #islide [effect]="'slide'" [pager]="false" [autoplay]="3000" [loop]="true" [initialSlide]="0" [speed]="300" [direction]="'horizontal'" (ionSlideDidChange)="slideChanged()">
-    <ion-slide *ngFor="let banner of banners | async">
-			<img src="https://pizzacrust.com.pk/public_html/main-slider/{{ banner?.bannerImage }}">
-      <h3>{{ banner?.bannerTitle }}</h3>
-      <p>{{ banner?.bannerType }}</p>
-    </ion-slide>
-  </ion-slides>
+<ion-content no-padding class="main-body">
+	<div class="slider-container" *ngIf="banners">
+		<ion-slides #islide [effect]="'slide'" [pager]="false" [autoplay]="3000" [loop]="true" [initialSlide]="0" [speed]="300" [direction]="'horizontal'"
+		 (ionSlideDidChange)="slideChanged()">
+			<ion-slide *ngFor="let slider of sliders | async">
+				<img src="https://pizzacrust.com.pk/public_html/main-slider/{{ slider?.bannerImage }}" height="100px">
+			</ion-slide>
+		</ion-slides>
+	</div>
+
+	<ion-card class="banner-container" padding *ngFor="let banner of banners | async">
+		<ion-card>
+			<img src="https://pizzacrust.com.pk/public_html/main-slider/{{ banner?.bannerImage }}" />
+		</ion-card>
+	</ion-card>
+
+	<div class="subscribe-container">
+		<ion-grid>
+			<ion-row>
+				<ion-label>Sign up for the newsletter and get exclusive deals.</ion-label>
+			</ion-row>
+
+			<ion-row>
+				<ion-item>
+					<ion-label floating>Enter your email</ion-label>
+					<ion-input [(ngModel)]="email" required></ion-input>
+				</ion-item>
+
+				<button full color="dark">SUBSCRIBE</button>
+			</ion-row>
+		</ion-grid>
+	</div>
 </ion-content>
