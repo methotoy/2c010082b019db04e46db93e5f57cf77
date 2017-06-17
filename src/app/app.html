@@ -1,18 +1,24 @@
 <ion-menu [content]="content">
   <ion-header>
-    <ion-toolbar>
-      <ion-title>Menu</ion-title>
-    </ion-toolbar>
+    <!--<ion-toolbar color="dark">
+      <ion-title align="center">Pizza Crust</ion-title>
+    </ion-toolbar>-->
+    <div class="pizcru-sidebar-header">
+      <img src="/assets/img/logo_mod-a.png">
+    </div>
   </ion-header>
 
-  <ion-content>
-    <ion-list>
-      <button menuClose ion-item *ngFor="let p of pages" (click)="openPage(p)">
-        {{p.title}}
+  <ion-content class="main-body">
+    <ion-list no-lines>
+      <button color="primary" menuClose ion-item *ngFor="let p of mainPages" (click)="openPage(p)">
+        <ion-icon name="{{ p.icon }}"></ion-icon> {{p.title}}
+      </button>
+      <ion-item-divider></ion-item-divider>
+      <button color="primary" menuClose ion-item *ngFor="let p of otherPages" (click)="openPage(p)">
+        <ion-icon name="{{ p.icon }}"></ion-icon> {{p.title}}
       </button>
     </ion-list>
   </ion-content>
-
 </ion-menu>
 
 <!-- Disable swipe-to-go-back because it's poor UX to combine STGB with side menus -->

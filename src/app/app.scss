@@ -35,3 +35,37 @@
     background-size: cover;
     color: #fff;
 }
+
+ion-menu {
+    .menu-inner {
+        background: rgba(0,0,0,0.5) !important;
+    }
+
+    button[ion-item] {
+        color: #fff;
+        background: transparent;
+        font-size: 20px;
+    }
+
+    ion-item-divider.item-divider {
+        background: transparent;
+    }
+
+    ion-header {
+        .pizcru-sidebar-header {
+            height: 150px;
+            width: 100%;
+            background: url('/assets/media/bg-title.jpg') no-repeat 50% 0;
+            background-size: cover;
+
+            img{
+                margin: auto;
+                position: absolute;
+                top: 0;
+                bottom: 25px;
+                left: 0;
+                right: 0;
+            }
+        }
+    }
+}

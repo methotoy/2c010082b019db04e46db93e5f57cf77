@@ -11,15 +11,24 @@ export class MyApp {
 
   rootPage: string = 'HomePage';
 
-  pages: any;
+  mainPages: any;
+  otherPages: any;
 
   constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
-    this.pages = [
-      { title: 'Home', component: 'HomePage' },
-      { title: 'Menu', component: 'MenuPage' },
+    this.mainPages = [
+      { title: 'Home', icon: 'home', component: 'HomePage' },
+      { title: 'Menu', icon: 'list-box', component: 'MenuPage' },
+      { title: 'Favorites', icon: 'star', component: 'MenuPage' },
+      { title: 'Cart', icon: 'cart', component: 'MenuPage' },
+    ];
+
+    this.otherPages = [
+      { title: 'About Us', icon: 'alert', component: 'HomePage' },
+      { title: 'Contact Us', icon: 'call', component: 'MenuPage' },
+      { title: 'Terms of Use', icon: 'paper', component: 'MenuPage' },
     ];
 
   }
