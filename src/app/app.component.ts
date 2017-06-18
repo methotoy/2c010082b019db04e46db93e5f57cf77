@@ -9,7 +9,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
-  rootPage: string = 'HomePage';
+  rootPage: string = 'ProductDetailsPage';
 
   mainPages: any;
   otherPages: any;
@@ -20,7 +20,9 @@ export class MyApp {
     // used for an example of ngFor and navigation
     this.mainPages = [
       { title: 'Home', icon: 'home', component: 'HomePage' },
-      { title: 'Menu', icon: 'list-box', component: 'MenuPage' },
+      { title: 'Categories', icon: 'list-box', component: 'CategoryPage' },
+      { title: 'Deals', icon: 'thumbs-up', component: 'CategoryPage' },
+      { title: 'Pizza Builder', icon: 'pizza', component: 'CategoryPage' },
       { title: 'Favorites', icon: 'star', component: 'MenuPage' },
       { title: 'Cart', icon: 'cart', component: 'MenuPage' },
     ];
@@ -37,8 +39,8 @@ export class MyApp {
     this.platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      this.statusBar.styleDefault();
-      this.splashScreen.hide();
+      // this.statusBar.styleDefault();
+      // this.splashScreen.hide();
     });
   }
 

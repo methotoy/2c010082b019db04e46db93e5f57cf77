@@ -1,0 +1,64 @@
+page-product-details {
+  font-family: 'Josefin Sans', Helvetica, sans-serif;
+
+  .pizcru-product-detail-image {
+    position: relative;
+    height: 258px;
+
+    img {
+      position: absolute;
+      margin: auto;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
+
+  .pizcru-product-detail-body {
+    > ion-label {
+      font-family: 'Fredericka the Great';
+      color: #fdbc2c;
+      font-size: 35px;
+    }
+
+    p {
+      font-size: 20px;
+    }
+
+    .card-md {
+      margin: 0px;
+      width: 100%;
+      background: rgba(0,0,0,0.5);
+
+      > ion-label {
+        padding-left: 16px;
+        font-family: 'Fredericka the Great';
+        color: #d94f2b;
+        font-size: 20px;
+      }
+
+      > ion-list {
+        border-top: 1px solid #fff;
+      }
+
+      .item-md {
+        padding-left: 0px;
+        background: transparent;
+        color: #fff;
+
+        ion-icon {
+          color: #fdbc2c;
+        }
+      }
+
+      .item-md.size-selected {
+        background: rgba(255,255,255,0.2);
+      }
+
+      .item-md.item-block .item-inner {
+        padding-left: 16px;
+      }
+    }
+  }
+}

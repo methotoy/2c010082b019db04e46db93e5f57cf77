@@ -1,0 +1,23 @@
+<ion-header>
+	<ion-navbar color="dark">
+		<button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+		<ion-title>Categories</ion-title>
+	</ion-navbar>
+</ion-header>
+
+<ion-content class="main-body">
+	<ion-grid>
+		<ion-row responsive-sm wrap>
+			<ion-col *ngFor="let category of categories | async" col-6>
+				<ion-card (click)="openProduct(category.iCategoryId,deleteSpace(category.vName))" tappable>
+					<div [class]="'pizcru-menu-image image-'+deleteSpace(category.vName)"></div>
+					<ion-label class="pizcru-menu-label">
+						{{ category.vName }}
+					</ion-label>
+				</ion-card>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</ion-content>

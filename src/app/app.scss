@@ -69,3 +69,28 @@ ion-menu {
         }
     }
 }
+
+ion-header {
+    ion-navbar {
+        position: relative;
+
+        button.back-button > .button-inner > .back-button-text {
+            font-size: small;
+        }
+
+        button.back-button {
+            z-index: 100;
+        }
+
+        .toolbar-content {
+            margin: auto;
+            position: absolute;
+            // top: 0;
+            // bottom: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 99;
+        }
+    }
+}

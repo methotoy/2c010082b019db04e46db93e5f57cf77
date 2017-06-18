@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <ion-title>{{ productName }}</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="main-body">
+  <ion-grid>
+    <ion-row responsive-sm wrap>
+      <ion-col *ngFor="let product of products | async" col-6>
+        <ion-card (click)="openProduct(product.iProductId,product.vName)" tappable>
+          <div class="pizcru-menu-image" [style.background-image]="'url(https://pizzacrust.com.pk/public_html/upload/'+ product.vImage +')'"></div>
+          <ion-label class="pizcru-menu-label">
+            {{ product.vName }}
+          </ion-label>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

@@ -10,6 +10,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { BaseProvider } from './../providers/base.service';
 import { BannerServiceProvider } from '../providers/banner-service/banner-service';
+import { CategoryServiceProvider } from '../providers/category-service/category-service';
+import { ProductServiceProvider } from '../providers/product-service/product-service';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { BannerServiceProvider } from '../providers/banner-service/banner-servic
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     BaseProvider,
-    BannerServiceProvider
+    BannerServiceProvider,
+    CategoryServiceProvider,
+    ProductServiceProvider
   ]
 })
 export class AppModule {}
