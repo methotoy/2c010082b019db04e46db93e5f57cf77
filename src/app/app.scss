@@ -74,6 +74,10 @@ ion-header {
     ion-navbar {
         position: relative;
 
+        button[menutoggle] {
+            z-index: 101;
+        }
+
         button.back-button > .button-inner > .back-button-text {
             font-size: small;
         }

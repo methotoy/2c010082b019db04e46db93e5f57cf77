@@ -26,7 +26,7 @@ page-product-details {
       font-size: 20px;
     }
 
-    .card-md {
+    .card-md, .card-ios {
       margin: 0px;
       width: 100%;
       background: rgba(0,0,0,0.5);
@@ -42,7 +42,7 @@ page-product-details {
         border-top: 1px solid #fff;
       }
 
-      .item-md {
+      .item-md, .item-ios {
         padding-left: 0px;
         background: transparent;
         color: #fff;
@@ -52,12 +52,28 @@ page-product-details {
         }
       }
 
-      .item-md.size-selected {
+      .item-md.size-selected, .item-ios.size-selected {
         background: rgba(255,255,255,0.2);
       }
 
-      .item-md.item-block .item-inner {
+      .item-md.item-block .item-inner, .item-ios.item-block .item-inner {
         padding-left: 16px;
+      }
+    }
+
+    ion-list > ion-item.item-select ion-label {
+      font-family: 'Fredericka the Great';
+      color: #d94f2b;
+      font-size: 20px;
+    }
+
+    ion-grid ion-row button {
+      color: white;
+      height: 40px;
+
+      ion-icon {
+        padding-right: 5px;
+        font-size: 20px;
       }
     }
   }

@@ -19,7 +19,7 @@ import { Product } from './../../models/product.interface';
 export class ProductPage {
 	private productId: number | string;
 	public productName: string;
-	private prevPageTitle: string;
+	public prevPageTitle: string;
 
 	public products: Observable<Product[]>;
 	public productHasData: boolean = false;

@@ -15,12 +15,12 @@ import 'rxjs/add/observable/from';
 @IonicPage()
 @Component({
   selector: 'page-product-details',
-  templateUrl: 'product-details.html',
+  templateUrl: 'product-details.html'
 })
 export class ProductDetailsPage {
   private productId: number | string;
   public productName: string;
-  private prevPageTitle: string;
+  public prevPageTitle: string;
 
   public product: Product[];
 
@@ -33,8 +33,8 @@ export class ProductDetailsPage {
     private plt: Platform,
     private productService: ProductServiceProvider
   ) {
-    this.productId = '56'//navParams.get('productId');
-    this.productName = 'Test' //navParams.get('productName');
+    this.productId = navParams.get('productId');
+    this.productName = navParams.get('productName');
     this.prevPageTitle = navParams.get('prevPageTitle');
   }
 
@@ -47,9 +47,6 @@ export class ProductDetailsPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductDetailsPage');
-    if (this.plt.is('ios')) {
-      this.viewCtrl.setBackButtonText(this.prevPageTitle);
-    }
   }
   
   getSizes(data) {
@@ -66,7 +63,6 @@ export class ProductDetailsPage {
 
   updateQuantitySelected(quantity) {
     this.quantitySelected = quantity;
-    console.log(this.quantitySelected);
   }
 
 }
