@@ -1,23 +1,22 @@
 <ion-header>
-  <pizcru-header 
+  <!--<pizcru-header 
     [pageTitle]="productName"
     [prevPageTitle]="prevPageTitle"
     [filter]="true"
     [filterId]="productId" 
     (notifyFilter)="filter($event)"
     [selectedFilterId]="selectedFilterId">
-  </pizcru-header>
+  </pizcru-header>-->
 </ion-header>
 
 <ion-content class="main-body">
-  <!--{{ products | async }}-->
   <ion-grid>
     <ion-row responsive-sm wrap>
-      <ion-col *ngFor="let product of products | async" col-6>
-        <ion-card (click)="openProduct(product.iProductId,product.vName)" tappable>
-          <div class="pizcru-menu-image" [style.background-image]="'url(https://pizzacrust.com.pk/public_html/upload/'+ product.vImage +')'"></div>
+      <ion-col *ngFor="let deal of deals | async" col-6>
+        <ion-card (click)="openProduct(deal.dealID,deal.dealName)" tappable>
+          <div class="pizcru-menu-image" [style.background-image]="'url(https://pizzacrust.com.pk/public_html/upload/'+ deal.dealImage +')'"></div>
           <ion-label class="pizcru-menu-label">
-            {{ product.vName }}
+            {{ deal.dealName }}
           </ion-label>
         </ion-card>
       </ion-col>

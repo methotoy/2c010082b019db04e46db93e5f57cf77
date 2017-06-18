@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { CategoryServiceProvider } from './../../providers/category-service/category-service';
@@ -16,7 +16,7 @@ import { Category } from './../../models/category.interface';
   selector: 'page-category',
   templateUrl: 'category.html',
 })
-export class CategoryPage {
+export class CategoryPage implements OnInit {
 
   public categories: Observable<Category[]>;
 
@@ -26,7 +26,7 @@ export class CategoryPage {
     private categoryService: CategoryServiceProvider
   ) { }
 
-  ionViewWillEnter() {
+  ngOnInit() {
     this.categories = this.categoryService.category;
     this.categoryService.loadAll();
   }
@@ -41,6 +41,8 @@ export class CategoryPage {
 
   openProduct(id: number | string, name: string) {
     this.navCtrl.push('ProductPage', { productId: id, productName: name, prevPageTitle: 'Categories' });
+    this.navCtrl.canGoBack();
+		this.navCtrl.canSwipeBack();
   }
 
 }

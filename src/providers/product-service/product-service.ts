@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 
 import { BaseProvider } from './../base.service';
 import { Product } from '../../models/product.interface';
+import { Filter } from './../../models/filter.interface';
 
 /*
   Generated class for the BannerServiceProvider provider.
@@ -17,17 +18,22 @@ import { Product } from '../../models/product.interface';
 @Injectable()
 export class ProductServiceProvider extends BaseProvider {
   product: Observable<Product[]>;
+  filter: Observable<Filter[]>;
 
   private _product: BehaviorSubject<Product[]>;
+  private _filter: BehaviorSubject<Filter[]>;
   private dataStore: {
-    product: Product[]
+    product: Product[],
+    filter: Filter[]
   };
 
   constructor(public http: Http) {
     super(http);
-    this.dataStore = { product: [] };
+    this.dataStore = { product: [], filter: [] };
     this._product = <BehaviorSubject<Product[]>>new BehaviorSubject([]);
+    this._filter = <BehaviorSubject<Filter[]>>new BehaviorSubject([]);
     this.product = this._product.asObservable();
+    this.filter = this._filter.asObservable();
   }
 
   loadProduct(id) {
@@ -39,6 +45,18 @@ export class ProductServiceProvider extends BaseProvider {
           this._product.next(Object.assign({}, this.dataStore).product);
         },
         (error) => console.error('Could not load product.',error)
+      );
+  }
+
+  loadFilter(id) {
+    this.get(`/filter/getProductFilter.php?categoryId=${id}`)
+      .map((res: Response) => res.json())
+      .subscribe(
+        (data) => {
+          this.dataStore.filter = data;
+          this._filter.next(Object.assign({}, this.dataStore).filter);
+        },
+        (error) => console.error('Could not load product filter.',error)
       );
   }
 }        

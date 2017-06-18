@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, ViewController, NavParams, Platform } from 'ionic-angular';
 
 import { ProductServiceProvider } from './../../providers/product-service/product-service';
+import { DealServiceProvider } from './../../providers/deal-service/deal-service';
 import { Product } from './../../models/product.interface';
+import { Deal } from './../../models/deal.interface';
 import { Observable } from 'rxjs';
 import 'rxjs/add/observable/from';
 
@@ -17,12 +19,13 @@ import 'rxjs/add/observable/from';
   selector: 'page-product-details',
   templateUrl: 'product-details.html'
 })
-export class ProductDetailsPage {
+export class ProductDetailsPage implements OnInit{
   private productId: number | string;
   public productName: string;
   public prevPageTitle: string;
+  private productType: string = null;
 
-  public product: Product[];
+  public product: Product[] | Deal[];
 
   public sizeSelected: string;
   public quantitySelected: number = 1;
@@ -31,18 +34,25 @@ export class ProductDetailsPage {
     private viewCtrl: ViewController,
     private navParams: NavParams,
     private plt: Platform,
-    private productService: ProductServiceProvider
+    private productService: ProductServiceProvider,
+    private dealService: DealServiceProvider
   ) {
     this.productId = navParams.get('productId');
     this.productName = navParams.get('productName');
     this.prevPageTitle = navParams.get('prevPageTitle');
+    this.productType = (navParams.get('type'))? navParams.get('type') : null;
   }
 
-  ionViewWillEnter(){
-    this.productService.loadProduct(1);
-    this.product = Observable.from(this.productService.product)
-      .mergeAll()
-      .filter((data) => data.iProductId === this.productId);
+  ngOnInit(){
+    if(this.productType && this.productType === 'deals') {
+      this.product = Observable.from(this.dealService.deals)
+        .mergeAll()
+        .filter((data) => data.dealID === this.productId);
+    } else {
+      this.product = Observable.from(this.productService.product)
+        .mergeAll()
+        .filter((data) => data.iProductId === this.productId);
+    }
   }
 
   ionViewDidLoad() {
@@ -63,6 +73,10 @@ export class ProductDetailsPage {
 
   updateQuantitySelected(quantity) {
     this.quantitySelected = quantity;
+  }
+
+  checkIfHasBeverage(data) {
+    // Object.keys()
   }
 
 }

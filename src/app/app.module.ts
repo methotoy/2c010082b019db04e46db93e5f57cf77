@@ -13,9 +13,13 @@ import { BannerServiceProvider } from '../providers/banner-service/banner-servic
 import { CategoryServiceProvider } from '../providers/category-service/category-service';
 import { ProductServiceProvider } from '../providers/product-service/product-service';
 
+import { FilterPopOverComponent } from './../components/filter-pop-over/filter-pop-over';
+import { DealServiceProvider } from '../providers/deal-service/deal-service';
+
 @NgModule({
   declarations: [
-    MyApp
+    MyApp,
+    FilterPopOverComponent
   ],
   imports: [
     BrowserModule,
@@ -24,7 +28,8 @@ import { ProductServiceProvider } from '../providers/product-service/product-ser
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp
+    MyApp,
+    FilterPopOverComponent
   ],
   providers: [
     StatusBar,
@@ -33,7 +38,8 @@ import { ProductServiceProvider } from '../providers/product-service/product-ser
     BaseProvider,
     BannerServiceProvider,
     CategoryServiceProvider,
-    ProductServiceProvider
+    ProductServiceProvider,
+    DealServiceProvider
   ]
 })
 export class AppModule {}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, Platform } from 'ionic-angular';
 
 import { ProductServiceProvider } from './../../providers/product-service/product-service';
@@ -16,10 +16,11 @@ import { Product } from './../../models/product.interface';
 	selector: 'page-product',
 	templateUrl: 'product.html',
 })
-export class ProductPage {
-	private productId: number | string;
+export class ProductPage implements OnInit {
+	public productId: number | string;
 	public productName: string;
 	public prevPageTitle: string;
+	public selectedFilterId: number = 1;
 
 	public products: Observable<Product[]>;
 	public productHasData: boolean = false;
@@ -36,9 +37,9 @@ export class ProductPage {
 		this.prevPageTitle = navParams.get('prevPageTitle');
 	}
 
-	ionViewWillEnter() {
-		this.products = this.productService.product;
+	ngOnInit() {
 		this.productService.loadProduct(this.productId);
+		this.filter(1);
 	}
 
 	ionViewDidLoad() {
@@ -49,7 +50,27 @@ export class ProductPage {
 	}
 
 	openProduct(id: number | string, name: string) {
-    this.navCtrl.push('ProductDetailsPage', { productId: id, productName: name, prevPageTitle: this.productName });
-  }
+		this.navCtrl.push('ProductDetailsPage', { productId: id, productName: name, prevPageTitle: this.productName });
+		this.navCtrl.canGoBack();
+		this.navCtrl.canSwipeBack();
+	}
 
+	filter(id) {
+		if(id){
+			let filterId = parseInt(id);
+			if(this.selectedFilterId !== filterId) {
+				if(this.selectedFilterId !== filterId && filterId !== 1) {
+					this.products = Observable.from(this.productService.product)
+						.map((data) => data.filter(a => a.Product_type === filterId.toString()));
+					} else {	
+					this.products = Observable.from(this.productService.product)
+						.map((data) => data.filter(a => a.Product_type !== filterId.toString()));
+				}
+				this.selectedFilterId = filterId;
+			} else {
+				this.products = Observable.from(this.productService.product)
+						.map((data) => data.filter(a => a.Product_type !== filterId.toString()));
+			}
+		}
+	}
 }
