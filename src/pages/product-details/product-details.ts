@@ -19,16 +19,21 @@ import 'rxjs/add/observable/from';
   selector: 'page-product-details',
   templateUrl: 'product-details.html'
 })
-export class ProductDetailsPage implements OnInit{
+export class ProductDetailsPage implements OnInit {
   private productId: number | string;
   public productName: string;
   public prevPageTitle: string;
-  private productType: string = null;
+  public productType: string = null;
 
   public product: Product[] | Deal[];
 
+  // For Products Like Pizza etc.
   public sizeSelected: string;
   public quantitySelected: number = 1;
+
+  // For Deals
+  public selectedDeal: any[] = [];
+  public limitDeal: any[] = [];
 
   constructor(
     private viewCtrl: ViewController,
@@ -40,14 +45,30 @@ export class ProductDetailsPage implements OnInit{
     this.productId = navParams.get('productId');
     this.productName = navParams.get('productName');
     this.prevPageTitle = navParams.get('prevPageTitle');
-    this.productType = (navParams.get('type'))? navParams.get('type') : null;
+    this.productType = (navParams.get('type')) ? navParams.get('type') : null;
   }
 
-  ngOnInit(){
-    if(this.productType && this.productType === 'deals') {
+  ngOnInit() {
+    if (this.productType && this.productType === 'deals') {
       this.product = Observable.from(this.dealService.deals)
         .mergeAll()
         .filter((data) => data.dealID === this.productId);
+
+        Observable.from(this.dealService.deals)
+          .flatMap((res) => res)
+          .filter((data) => data.dealID === this.productId)
+          .subscribe(
+            (data) => {
+              this.limitDeal = data.numberofitem
+              if(data.numberofitem) {
+                for(let key in data.numberofitem) {
+                  for(let i = 0; i < parseInt(data.numberofitem[key]); i++) {
+                    this.selectedDeal.push({ id: key, productId: null});
+                  }
+                }
+              }
+            }
+          )
     } else {
       this.product = Observable.from(this.productService.product)
         .mergeAll()
@@ -58,10 +79,10 @@ export class ProductDetailsPage implements OnInit{
   ionViewDidLoad() {
     console.log('ionViewDidLoad ProductDetailsPage');
   }
-  
+
   getSizes(data) {
     let tempData = JSON.parse(data);
-    if(tempData && !this.sizeSelected) { 
+    if (tempData && !this.sizeSelected) {
       this.sizeSelected = tempData[0].vName;
     }
     return tempData;
@@ -75,8 +96,49 @@ export class ProductDetailsPage implements OnInit{
     this.quantitySelected = quantity;
   }
 
-  checkIfHasBeverage(data) {
-    // Object.keys()
+  updateSelectedDealProduct(data: Product) {
+    // let limit = parseInt(this.limitDeal[data.iCategoryId]);
+    // if()
+    let exist = this.selectedDeal.findIndex(item => item.id === data.iCategoryId && item.productId === data.iProductId);
+    let index = this.selectedDeal.findIndex(item => item.id === data.iCategoryId && item.productId === null);
+    if(exist < 0 && index > -1) {
+      this.selectedDeal[index].productId = data.iProductId;
+    } else {
+      if( exist < 0) {
+        index = this.selectedDeal.findIndex(item => item.id === data.iCategoryId && item.productId !== data.iProductId);
+        this.selectedDeal[index].productId = data.iProductId;
+      } else {
+        this.selectedDeal[exist].productId = null;
+      }
+    }
+    console.log(this.selectedDeal,index);
+  }
+
+  convertToArray(data) {
+    if (typeof data) {
+      let tempData = [];
+      for (let key in data) {
+        if (data.hasOwnProperty(key) && data[key].length > 0) {
+          tempData.push(parseInt(data[key]));
+        }
+      }
+
+      tempData.sort();
+      return tempData.reverse();
+    }
+
+    return data;
+  }
+
+  checkSelected(data) {
+    let exist = this.selectedDeal.findIndex(item => item.id === data.iCategoryId && item.productId === data.iProductId);
+
+    return (exist > -1)? true : false;
+  }
+
+  checkLimit() {
+    let limit = this.selectedDeal.findIndex(item => item.productId === null);
+    return (limit > -1)? true : false;
   }
 
 }

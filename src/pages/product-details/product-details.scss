@@ -16,7 +16,7 @@ page-product-details {
   }
 
   .pizcru-product-detail-body {
-    > ion-label {
+    > ion-label[text-wrap] {
       font-family: 'Abril Fatface';
       color: #fdbc2c;
       font-size: 35px;
@@ -26,16 +26,29 @@ page-product-details {
       font-size: 20px;
     }
 
+    > ion-label {
+      color:#d94f2b;
+      font-family:'Fredericka the Great';
+      font-size:25px;
+    }
+
     .card-md, .card-ios {
       margin: 0px;
+      margin-top: 10px;
       width: 100%;
       background: rgba(0,0,0,0.5);
 
       > ion-label {
         padding-left: 16px;
         font-family: 'Fredericka the Great';
-        color: #d94f2b;
+        color: #fdbc2c;
         font-size: 20px;
+
+        span {
+          font-family: 'Josefin Sans';
+          font-size: 14px;
+          color: #d94f2b;
+        }
       }
 
       > ion-list {

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { DealsPage } from './deals';
+import { PizcruHeaderComponentModule } from './../../components/pizcru-header/pizcru-header.module';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { DealsPage } from './deals';
   ],
   imports: [
     IonicPageModule.forChild(DealsPage),
+    PizcruHeaderComponentModule
   ],
   exports: [
     DealsPage

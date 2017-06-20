@@ -18,10 +18,11 @@ import { FilterPopOverComponent } from './../filter-pop-over/filter-pop-over';
 export class PizcruHeaderComponent implements OnInit {
 
   @Input() pageTitle: string;
-  @Input() prevPageTitle: string;
+  @Input() prevPageTitle?: string = null;
   @Input() filter?: boolean = false;
   @Input() filterId?: number | string;
   @Input() selectedFilterId?: number | string;
+  @Input() productType?: string = null;
 
   @Output() notifyFilter: EventEmitter<number> = new EventEmitter<number>();
 
@@ -41,13 +42,13 @@ export class PizcruHeaderComponent implements OnInit {
     }
 
     if (this.filter) {
-      console.log('Filter Enable!');
       this.productService.loadFilter(this.filterId);
       this.productService.filter.subscribe(
         (data) => {
           this.dataLength = data.length;
         }
       );
+
       this.productFilter = this.productService.filter;
     }
   }

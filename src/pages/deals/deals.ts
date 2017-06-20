@@ -19,6 +19,9 @@ import { Deal } from './../../models/deal.interface';
 export class DealsPage implements OnInit {
 
   public deals: Observable<Deal[]>;
+  public selectedFilterId: number = 1;
+
+  public pageTitle: string = 'Deals';
 
   constructor(
     public navCtrl: NavController,
@@ -39,6 +42,25 @@ export class DealsPage implements OnInit {
 		this.navCtrl.push('ProductDetailsPage', { productId: id, productName: name, prevPageTitle: 'Deals', type: 'deals' });
     this.navCtrl.canGoBack();
 		this.navCtrl.canSwipeBack();
+  }
+
+  filter(id) {
+    if(id){
+			let filterId = parseInt(id);
+			if(this.selectedFilterId !== filterId) {
+				if(this.selectedFilterId !== filterId && filterId !== 1) {
+					this.deals = Observable.from(this.dealService.deals)
+						.map((data) => data.filter(a => a.dealFilter === filterId.toString()));
+					} else {	
+					this.deals = Observable.from(this.dealService.deals)
+						.map((data) => data.filter(a => a.dealFilter !== filterId.toString()));
+				}
+				this.selectedFilterId = filterId;
+			} else {
+				this.deals = Observable.from(this.dealService.deals)
+						.map((data) => data.filter(a => a.dealFilter !== filterId.toString()));
+			}
+		}
   }
 
 }
