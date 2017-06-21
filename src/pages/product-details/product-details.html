@@ -92,7 +92,7 @@
 
       <ion-grid>
         <ion-row>
-          <button ion-button block color="primary" [disabled]="productType === 'deals' && checkLimit()">
+          <button ion-button block color="primary" (click)="dealAddToCart()" [disabled]="productType === 'deals' && checkLimit()">
             <ion-icon name="cart"></ion-icon>
             Add to cart
           </button>

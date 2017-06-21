@@ -14,7 +14,11 @@ export class MyApp {
   mainPages: any;
   otherPages: any;
 
-  constructor(public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(
+    public platform: Platform,
+    public statusBar: StatusBar,
+    public splashScreen: SplashScreen
+  ) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation

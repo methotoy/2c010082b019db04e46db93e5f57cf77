@@ -15,11 +15,13 @@ import { ProductServiceProvider } from '../providers/product-service/product-ser
 
 import { FilterPopOverComponent } from './../components/filter-pop-over/filter-pop-over';
 import { DealServiceProvider } from '../providers/deal-service/deal-service';
+import { CartComponent } from '../components/cart/cart';
 
 @NgModule({
   declarations: [
     MyApp,
-    FilterPopOverComponent
+    FilterPopOverComponent,
+    CartComponent
   ],
   imports: [
     BrowserModule,

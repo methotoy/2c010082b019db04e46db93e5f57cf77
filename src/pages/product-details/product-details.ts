@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, ViewController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, ViewController, NavParams, Platform, ModalController } from 'ionic-angular';
 
 import { ProductServiceProvider } from './../../providers/product-service/product-service';
 import { DealServiceProvider } from './../../providers/deal-service/deal-service';
@@ -34,6 +34,7 @@ export class ProductDetailsPage implements OnInit {
   // For Deals
   public selectedDeal: any[] = [];
   public limitDeal: any[] = [];
+  private dealImage: string = null;
 
   constructor(
     private viewCtrl: ViewController,
@@ -54,21 +55,22 @@ export class ProductDetailsPage implements OnInit {
         .mergeAll()
         .filter((data) => data.dealID === this.productId);
 
-        Observable.from(this.dealService.deals)
-          .flatMap((res) => res)
-          .filter((data) => data.dealID === this.productId)
-          .subscribe(
-            (data) => {
-              this.limitDeal = data.numberofitem
-              if(data.numberofitem) {
-                for(let key in data.numberofitem) {
-                  for(let i = 0; i < parseInt(data.numberofitem[key]); i++) {
-                    this.selectedDeal.push({ id: key, productId: null});
-                  }
-                }
+      Observable.from(this.dealService.deals)
+        .flatMap((res) => res)
+        .filter((data) => data.dealID === this.productId)
+        .subscribe(
+        (data) => {
+          this.limitDeal = data.numberofitem;
+          this.dealImage = data.dealImage;
+          if (data.numberofitem) {
+            for (let key in data.numberofitem) {
+              for (let i = 0; i < parseInt(data.numberofitem[key]); i++) {
+                this.selectedDeal.push({ id: key, productId: null, productName: null });
               }
             }
-          )
+          }
+        }
+        )
     } else {
       this.product = Observable.from(this.productService.product)
         .mergeAll()
@@ -97,21 +99,21 @@ export class ProductDetailsPage implements OnInit {
   }
 
   updateSelectedDealProduct(data: Product) {
-    // let limit = parseInt(this.limitDeal[data.iCategoryId]);
-    // if()
     let exist = this.selectedDeal.findIndex(item => item.id === data.iCategoryId && item.productId === data.iProductId);
     let index = this.selectedDeal.findIndex(item => item.id === data.iCategoryId && item.productId === null);
-    if(exist < 0 && index > -1) {
+    if (exist < 0 && index > -1) {
       this.selectedDeal[index].productId = data.iProductId;
+      this.selectedDeal[index].productName = data.vName;
     } else {
-      if( exist < 0) {
+      if (exist < 0) {
         index = this.selectedDeal.findIndex(item => item.id === data.iCategoryId && item.productId !== data.iProductId);
         this.selectedDeal[index].productId = data.iProductId;
+        this.selectedDeal[index].productName = data.vName;
       } else {
         this.selectedDeal[exist].productId = null;
+        this.selectedDeal[exist].productName = null;
       }
     }
-    console.log(this.selectedDeal,index);
   }
 
   convertToArray(data) {
@@ -133,12 +135,16 @@ export class ProductDetailsPage implements OnInit {
   checkSelected(data) {
     let exist = this.selectedDeal.findIndex(item => item.id === data.iCategoryId && item.productId === data.iProductId);
 
-    return (exist > -1)? true : false;
+    return (exist > -1) ? true : false;
   }
 
   checkLimit() {
     let limit = this.selectedDeal.findIndex(item => item.productId === null);
-    return (limit > -1)? true : false;
+    return (limit > -1) ? true : false;
+  }
+
+  dealAddToCart() {
+    console.log(this.selectedDeal,this.dealImage);
   }
 
 }
