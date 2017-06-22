@@ -28,7 +28,7 @@ export class MyApp {
       { title: 'Deals', icon: 'thumbs-up', component: 'DealsPage' },
       { title: 'Pizza Builder', icon: 'pizza', component: 'CategoryPage' },
       { title: 'Favorites', icon: 'star', component: 'MenuPage' },
-      { title: 'Cart', icon: 'cart', component: 'MenuPage' },
+      { title: 'Cart', icon: 'cart', component: 'CartPage' },
     ];
 
     this.otherPages = [

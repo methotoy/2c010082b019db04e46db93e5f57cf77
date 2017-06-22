@@ -9,7 +9,7 @@
 
 
 <ion-content no-padding class="main-body">
-	<div class="slider-container" *ngIf="banners">
+	<div class="slider-container" *ngIf="(sliders | async)">
 		<ion-slides #islide [effect]="'slide'" [pager]="true" [autoplay]="3000" [loop]="true" [initialSlide]="0" [speed]="300" [direction]="'horizontal'"
 		 (ionSlideDidChange)="slideChanged()" color="primary">
 			<ion-slide *ngFor="let slider of sliders | async">

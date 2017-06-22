@@ -12,21 +12,22 @@ import { BaseProvider } from './../providers/base.service';
 import { BannerServiceProvider } from '../providers/banner-service/banner-service';
 import { CategoryServiceProvider } from '../providers/category-service/category-service';
 import { ProductServiceProvider } from '../providers/product-service/product-service';
+import { DealServiceProvider } from '../providers/deal-service/deal-service';
 
 import { FilterPopOverComponent } from './../components/filter-pop-over/filter-pop-over';
-import { DealServiceProvider } from '../providers/deal-service/deal-service';
-import { CartComponent } from '../components/cart/cart';
+
+import { IonicStorageModule } from '@ionic/storage';
 
 @NgModule({
   declarations: [
     MyApp,
-    FilterPopOverComponent,
-    CartComponent
+    FilterPopOverComponent
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
-    HttpModule
+    HttpModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

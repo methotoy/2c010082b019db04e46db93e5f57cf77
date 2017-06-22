@@ -21,7 +21,7 @@
         </ion-label>
         <ion-list>
           <button ion-item detail-none *ngFor="let item of getSizes((product | async)?.tSizeArray); let i = index" [ngClass]="(sizeSelected === item.vName)? 'size-selected' : ''"
-            (click)="updateSizeSelected(item.vName)">
+            (click)="updateSizeSelected(item.vName,item.iPrice)">
             {{ item.vName }}: Rs {{ item.iPrice }}
             <ion-icon name="{{ (sizeSelected === item.vName)? 'checkmark-circle-outline' : 'radio-button-off' }}" item-end></ion-icon>
           </button>
@@ -39,7 +39,7 @@
 
       <ion-grid>
         <ion-row>
-          <button ion-button block color="primary">
+          <button ion-button block color="primary" (click)="productAddToCart()">
             <ion-icon name="cart"></ion-icon>
             Add to cart
           </button>

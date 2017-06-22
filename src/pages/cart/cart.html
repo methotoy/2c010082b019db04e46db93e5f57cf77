@@ -1,0 +1,32 @@
+<ion-header>
+	<ion-navbar color="dark">
+		<button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+		<ion-title>Cart</ion-title>
+	</ion-navbar>
+</ion-header>
+
+
+<ion-content no-padding class="main-body">
+  <ion-card>
+    <ion-card-content>
+      <ion-list *ngIf="itemsHasData" >
+        <ion-item *ngFor="let item of items">
+          <ion-thumbnail item-start>
+            <img src="https://pizzacrust.com.pk/public_html/upload/{{ item?.image }}" width="50">
+          </ion-thumbnail>
+          <h2>{{ item?.product }}</h2>
+          <p class="product" *ngIf="item.size; else selectedItem" >{{ item.size }}</p>
+          <ng-template #selectedItem>
+            <p class="product" *ngFor="let selected of item?.itemSelected">
+              {{ selected?.productName }}
+            </p>
+          </ng-template>
+          <p><span>{{ item?.quantity || 1 }} x</span> Rs {{ item?.price }}</p>
+          <button ion-button clear item-end color="danger">Remove</button>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

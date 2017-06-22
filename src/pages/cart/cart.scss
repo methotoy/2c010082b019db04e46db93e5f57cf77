@@ -1,0 +1,30 @@
+page-cart {
+
+  ion-card {
+    background: rgba(0,0,0,0.6) !important;
+
+    ion-item {
+      background: transparent !important;
+      color: white !important;
+      
+      &.item-ios {
+        padding-left: 0px;
+      }
+
+      ion-label {
+        h2 {
+          color: #fdbc2c;
+        }
+
+        p.product {
+          color: #fff;
+        }
+
+        p > span {
+          color: #d94f2b;
+        }
+      }
+    }
+  }
+
+}

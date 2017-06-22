@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, ViewController, NavParams, Platform, ModalController } from 'ionic-angular';
-
+import { IonicPage, ViewController, NavParams, Platform, NavController, LoadingController } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 import { ProductServiceProvider } from './../../providers/product-service/product-service';
 import { DealServiceProvider } from './../../providers/deal-service/deal-service';
 import { Product } from './../../models/product.interface';
@@ -30,18 +30,25 @@ export class ProductDetailsPage implements OnInit {
   // For Products Like Pizza etc.
   public sizeSelected: string;
   public quantitySelected: number = 1;
+  private productPrice: number = 0;
+  private productImage: string;
 
   // For Deals
   public selectedDeal: any[] = [];
   public limitDeal: any[] = [];
   private dealImage: string = null;
+  private dealPrice: string | number;
+
 
   constructor(
     private viewCtrl: ViewController,
     private navParams: NavParams,
     private plt: Platform,
     private productService: ProductServiceProvider,
-    private dealService: DealServiceProvider
+    private dealService: DealServiceProvider,
+    private navCtrl: NavController,
+    private strg: Storage,
+    private loadingCtrl: LoadingController
   ) {
     this.productId = navParams.get('productId');
     this.productName = navParams.get('productName');
@@ -62,6 +69,7 @@ export class ProductDetailsPage implements OnInit {
         (data) => {
           this.limitDeal = data.numberofitem;
           this.dealImage = data.dealImage;
+          this.dealPrice = data.dealPrice;
           if (data.numberofitem) {
             for (let key in data.numberofitem) {
               for (let i = 0; i < parseInt(data.numberofitem[key]); i++) {
@@ -70,11 +78,20 @@ export class ProductDetailsPage implements OnInit {
             }
           }
         }
-        )
+        );
     } else {
       this.product = Observable.from(this.productService.product)
         .mergeAll()
         .filter((data) => data.iProductId === this.productId);
+
+      Observable.from(this.productService.product)
+        .flatMap((res) => res)
+        .filter((data) => data.iProductId === this.productId)
+        .subscribe(
+        (data) => {
+          this.productImage = data.vImage;
+        }
+        );
     }
   }
 
@@ -90,8 +107,9 @@ export class ProductDetailsPage implements OnInit {
     return tempData;
   }
 
-  updateSizeSelected(sizeName) {
+  updateSizeSelected(sizeName, price) {
     this.sizeSelected = sizeName;
+    this.productPrice = price;
   }
 
   updateQuantitySelected(quantity) {
@@ -144,7 +162,66 @@ export class ProductDetailsPage implements OnInit {
   }
 
   dealAddToCart() {
-    console.log(this.selectedDeal,this.dealImage);
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    })
+
+    loading.present();
+
+    let storageData = [];
+    let dealData = { 
+      product: this.productName || null,
+      price: this.dealPrice || 0,
+      image: this.dealImage,
+      itemSelected: this.selectedDeal
+    };
+
+    this.strg.get('cart').then((result) => {
+      if (result) {
+        storageData = JSON.parse(result);
+        storageData.push(dealData);
+        this.strg.set('cart', JSON.stringify(storageData));
+      } else {
+        storageData.push(dealData);
+        this.strg.set('cart', JSON.stringify(storageData));
+      }
+
+      setTimeout(() => {
+        loading.dismiss();
+      }, 2000);
+    });
+  }
+
+  productAddToCart() {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    })
+
+    loading.present();
+
+    let storageData = [];
+    let productData = {
+      product: this.productName || null,
+      price: this.productPrice || 0,
+      image: this.productImage,
+      size: this.sizeSelected || 0,
+      quantity: this.quantitySelected || 0
+    };
+
+    this.strg.get('cart').then((result) => {
+      if (result) {
+        storageData = JSON.parse(result);
+        storageData.push(productData);
+        this.strg.set('cart', JSON.stringify(storageData));
+      } else {
+        storageData.push(productData);
+        this.strg.set('cart', JSON.stringify(storageData));
+      }
+
+      setTimeout(() => {
+        loading.dismiss();
+      }, 2000);
+    });
   }
 
 }
