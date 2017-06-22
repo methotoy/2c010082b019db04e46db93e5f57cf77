@@ -11,7 +11,7 @@
       <ion-icon name="funnel"></ion-icon>
     </button>
 
-    <button ion-button icon-only *ngIf="productType === null">
+    <button ion-button icon-only *ngIf="productType === null" (click)="openCart()">
       <ion-icon name="cart"></ion-icon>
     </button>
   </ion-buttons>

@@ -7,13 +7,13 @@ page-cart {
       background: transparent !important;
       color: white !important;
       
-      &.item-ios {
+      &.item-ios, &.item-md {
         padding-left: 0px;
       }
 
       ion-label {
         h2 {
-          color: #fdbc2c;
+          color: #fdbc2c !important; 
         }
 
         p.product {

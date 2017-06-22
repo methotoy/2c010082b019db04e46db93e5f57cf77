@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { PizcruHeaderComponent } from './../../components/pizcru-header/pizcru-header';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonicPage, ViewController, NavParams, Platform, NavController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { ProductServiceProvider } from './../../providers/product-service/product-service';
@@ -30,7 +31,7 @@ export class ProductDetailsPage implements OnInit {
   // For Products Like Pizza etc.
   public sizeSelected: string;
   public quantitySelected: number = 1;
-  private productPrice: number = 0;
+  private productPrice: string | number;
   private productImage: string;
 
   // For Deals
@@ -39,6 +40,8 @@ export class ProductDetailsPage implements OnInit {
   private dealImage: string = null;
   private dealPrice: string | number;
 
+  @ViewChild(PizcruHeaderComponent)
+  private pizcruHeaderComponent: PizcruHeaderComponent
 
   constructor(
     private viewCtrl: ViewController,
@@ -90,6 +93,12 @@ export class ProductDetailsPage implements OnInit {
         .subscribe(
         (data) => {
           this.productImage = data.vImage;
+          if (data.eSize === 'No') {
+            this.productPrice = data.iPrice;
+          } else {
+            let tempData = JSON.parse(data.tSizeArray);
+            this.productPrice = tempData[0].iPrice;
+          }
         }
         );
     }
@@ -113,7 +122,7 @@ export class ProductDetailsPage implements OnInit {
   }
 
   updateQuantitySelected(quantity) {
-    this.quantitySelected = quantity;
+    this.quantitySelected = parseInt(quantity);
   }
 
   updateSelectedDealProduct(data: Product) {
@@ -169,11 +178,13 @@ export class ProductDetailsPage implements OnInit {
     loading.present();
 
     let storageData = [];
-    let dealData = { 
+    let dealData = {
+      id: new Date().getTime(),
       product: this.productName || null,
       price: this.dealPrice || 0,
       image: this.dealImage,
-      itemSelected: this.selectedDeal
+      itemSelected: this.selectedDeal,
+      quantity: 1
     };
 
     this.strg.get('cart').then((result) => {
@@ -185,6 +196,10 @@ export class ProductDetailsPage implements OnInit {
         storageData.push(dealData);
         this.strg.set('cart', JSON.stringify(storageData));
       }
+
+      setTimeout(() => {
+        this.pizcruHeaderComponent.openCart();
+      },1500);
 
       setTimeout(() => {
         loading.dismiss();
@@ -201,6 +216,7 @@ export class ProductDetailsPage implements OnInit {
 
     let storageData = [];
     let productData = {
+      id: `${this.productId}-${this.sizeSelected || null}`,
       product: this.productName || null,
       price: this.productPrice || 0,
       image: this.productImage,
@@ -211,12 +227,22 @@ export class ProductDetailsPage implements OnInit {
     this.strg.get('cart').then((result) => {
       if (result) {
         storageData = JSON.parse(result);
-        storageData.push(productData);
+        let existProd = storageData.findIndex(item => item.id === productData.id);
+
+        if (existProd > -1) {
+          storageData[existProd].quantity += productData.quantity
+        } else {
+          storageData.push(productData);
+        }
         this.strg.set('cart', JSON.stringify(storageData));
       } else {
         storageData.push(productData);
         this.strg.set('cart', JSON.stringify(storageData));
       }
+
+      setTimeout(() => {
+        this.pizcruHeaderComponent.openCart();
+      },1500);
 
       setTimeout(() => {
         loading.dismiss();

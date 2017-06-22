@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
-import { Platform, ViewController, PopoverController } from 'ionic-angular';
+import { Platform, ViewController, PopoverController, NavController } from 'ionic-angular';
 import { Filter } from './../../models/filter.interface';
 import { ProductServiceProvider } from './../../providers/product-service/product-service';
 import { Observable } from 'rxjs';
@@ -33,7 +33,8 @@ export class PizcruHeaderComponent implements OnInit {
     private plt: Platform,
     private viewCtrl: ViewController,
     private productService: ProductServiceProvider,
-    private popoverCtrl: PopoverController
+    private popoverCtrl: PopoverController,
+    private navCtrl: NavController
   ) { }
 
   ngOnInit() {
@@ -60,6 +61,13 @@ export class PizcruHeaderComponent implements OnInit {
     popover.onDidDismiss(
       (data) => this.notifyFilter.emit(data)
     );
+  }
+
+  openCart() {
+    console.log(this.pageTitle);
+    this.navCtrl.push('CartPage', { prevPage: this.pageTitle });
+		this.navCtrl.canGoBack();
+		this.navCtrl.canSwipeBack();
   }
 
 }

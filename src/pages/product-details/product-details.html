@@ -15,7 +15,7 @@
 
       <p>{{ (product | async)?.vDescription }}</p>
 
-      <ion-card *ngIf="(product | async)?.eSize === 'Yes'">
+      <ion-card *ngIf="(product | async)?.eSize === 'Yes'; else productPrice">
         <ion-label>
           Price
         </ion-label>
@@ -27,6 +27,9 @@
           </button>
         </ion-list>
       </ion-card>
+      <ng-template #productPrice>
+        <ion-label>Rs {{ (product | async)?.iPrice }}</ion-label>
+      </ng-template>
       <br/>
       <ion-list>
         <ion-item [style.background]="'rgba(0,0,0,0.5)'" [style.color]="'#fff'">
@@ -79,9 +82,8 @@
             {{ item.vName }}: Rs {{ item.iPrice }}
             <ion-icon name="{{ (sizeSelected === item.vName)? 'checkmark-circle-outline' : 'radio-button-off' }}" item-end></ion-icon>
           </button>-->
-          <button ion-item detail-none *ngFor="let item of (product | async)?.products[id]; let i = index"
-            [ngClass]="checkSelected(item[0])? 'size-selected' : ''"
-            (click)="updateSelectedDealProduct(item[0])" >
+          <button ion-item detail-none *ngFor="let item of (product | async)?.products[id]; let i = index" [ngClass]="checkSelected(item[0])? 'size-selected' : ''"
+            (click)="updateSelectedDealProduct(item[0])">
             {{ item[0].vName }}
             <ion-icon name="{{ checkSelected(item[0])? 'checkmark-circle-outline' : 'radio-button-off' }}" item-end></ion-icon>
           </button>
