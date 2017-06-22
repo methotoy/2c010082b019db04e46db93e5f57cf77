@@ -9,13 +9,16 @@
 
 
 <ion-content no-padding class="main-body">
-	<div class="slider-container" *ngIf="(sliders | async)">
-		<ion-slides #islide [effect]="'slide'" [pager]="true" [autoplay]="3000" [loop]="true" [initialSlide]="0" [speed]="300" [direction]="'horizontal'"
+	<div class="slider-container">
+		<ion-slides *ngIf="(sliders | async); else slidesLoading" #islide [effect]="'slide'" [pager]="true" [autoplay]="3000" [loop]="true" [initialSlide]="0" [speed]="300" [direction]="'horizontal'"
 		 (ionSlideDidChange)="slideChanged()" color="primary">
 			<ion-slide *ngFor="let slider of sliders | async">
 				<img src="https://pizzacrust.com.pk/public_html/main-slider/{{ slider?.bannerImage }}" height="100px">
 			</ion-slide>
 		</ion-slides>
+		<ng-template #slidesLoading>
+			<ion-spinner name="bubbles" color="primary"></ion-spinner>
+		</ng-template>
 	</div>
 
 	<ion-card no-padding class="banner-container" *ngFor="let banner of banners | async">

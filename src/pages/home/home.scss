@@ -3,7 +3,18 @@ page-home {
 
     .slider-container {
         width: 100%;
+        min-height: 200px;
         padding-top: 10px;
+        position: relative;
+
+        ion-spinner {
+            margin: auto;
+            width: 57px;
+            height: 167px;
+            position: absolute;
+            right: 0;
+            left: 0;
+        }
 
         img {
             height: 200px;
