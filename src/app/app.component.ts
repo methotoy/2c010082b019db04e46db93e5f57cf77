@@ -26,7 +26,7 @@ export class MyApp {
       { title: 'Home', icon: 'home', component: 'HomePage' },
       { title: 'Categories', icon: 'list-box', component: 'CategoryPage' },
       { title: 'Deals', icon: 'thumbs-up', component: 'DealsPage' },
-      { title: 'Pizza Builder', icon: 'pizza', component: 'CategoryPage' },
+      { title: 'Pizza Builder', icon: 'pizza', component: 'BuilderPage' },
       { title: 'Favorites', icon: 'star', component: 'MenuPage' },
       { title: 'Cart', icon: 'cart', component: 'CartPage' },
     ];

@@ -17,6 +17,7 @@ import { DealServiceProvider } from '../providers/deal-service/deal-service';
 import { FilterPopOverComponent } from './../components/filter-pop-over/filter-pop-over';
 
 import { IonicStorageModule } from '@ionic/storage';
+import { BuilderServiceProvider } from '../providers/builder-service/builder-service';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { IonicStorageModule } from '@ionic/storage';
     BannerServiceProvider,
     CategoryServiceProvider,
     ProductServiceProvider,
-    DealServiceProvider
+    DealServiceProvider,
+    BuilderServiceProvider
   ]
 })
 export class AppModule {}

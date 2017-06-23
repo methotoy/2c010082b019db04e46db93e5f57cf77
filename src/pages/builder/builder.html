@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-navbar color="dark">
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Pizza Builder</ion-title>
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content class="main-body">
+  <ion-card *ngFor="let data of builderData; let i = index">
+    <ion-list-header>
+        <span *ngIf="i === 0">Choose Your Crust’s Size</span>
+        <span *ngIf="i === 1">Select Your Sauce</span>
+        <span *ngIf="i === 2">Add Cheese</span>
+        <span *ngIf="i === 3">Choose Your Toppings</span>
+    </ion-list-header>
+
+    <ion-grid>
+      <ion-row>
+        <ion-col col-4 *ngFor="let item of data['pizza-size']">
+          <ion-list>
+            <ion-item class="pizcru_size_container">
+              <ion-avatar item-start>
+                <div class="pizcru_builder_size">
+                  {{ item?.bDescription }}
+                </div>
+              </ion-avatar>
+              <span>{{ item?.bName }}</span>
+            </ion-item>
+          </ion-list>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+
+    <ion-list *ngFor="let item of data['sauce']">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="https://pizzacrust.com.pk/public_html/upload/{{ item?.bImage }}">
+        </ion-avatar>
+        {{ item?.bName }}
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngFor="let item of data['cheese']">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="https://pizzacrust.com.pk/public_html/upload/{{ item?.bImage }}">
+        </ion-avatar>
+        {{ item?.bName }}
+      </ion-item>
+    </ion-list>
+
+    <ion-list *ngFor="let item of data['topping']">
+      <ion-item>
+        <ion-avatar item-start>
+          <img src="https://pizzacrust.com.pk/public_html/upload/{{ item?.bImage }}">
+        </ion-avatar>
+        {{ item?.bName }}
+      </ion-item>
+    </ion-list>
+  </ion-card>
+</ion-content>

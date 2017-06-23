@@ -1,0 +1,62 @@
+page-builder {
+  font-family: 'Josefin Sans', Helvetica, sans-serif;
+
+  .main-body {
+    ion-card {
+      background: rgba(0,0,0,0.5);
+
+      ion-item {
+        background: transparent;
+        color: #fff;
+        height: 100px;
+
+        ion-avatar {
+          > img {
+            width: 60px;
+            height: 60px;
+          }
+        }
+
+        &.pizcru_size_container {
+          ion-avatar {
+            > .pizcru_builder_size {
+              width: 60px;
+              height: 60px;
+              border: 3px solid #fff; //#d94f2b;
+              border-radius: 50%;
+              color: #fff; //#d94f2b;
+              text-align: center;
+              line-height: 54px;
+              font-size: 20px;
+            }
+          }
+
+          div.item-inner {
+            position: absolute;
+            bottom: -83px;
+            right: 0;
+            left: 0;
+            top: 0;
+            margin: auto;
+            text-align: center;
+          }
+        }
+      }
+      
+      ion-list-header {
+        background: transparent;
+        font-size: 20px;
+        
+        span {
+          font-family: 'Fredericka the Great';
+          color: #fdbc2c;
+        }
+      }
+
+      // iOS
+      .list-ios > ion-item {
+        border: none !important;
+      }
+    }
+  }
+}
