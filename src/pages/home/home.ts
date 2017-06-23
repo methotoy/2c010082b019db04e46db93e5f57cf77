@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
 import { Observable } from 'rxjs';
 
@@ -15,11 +15,12 @@ import { BannerServiceProvider } from './../../providers/banner-service/banner-s
   selector: 'page-home',
   templateUrl: 'home.html',
 })
-export class HomePage {
+export class HomePage implements OnInit{
   @ViewChild(Slides) slides: Slides;
 
   public banners: Observable<Array<any>>;
   public sliders: Observable<Array<any>>;
+  public sliderHasData: boolean = false;
 
   public email: string;
 
@@ -29,9 +30,21 @@ export class HomePage {
     private bannerService: BannerServiceProvider
   ) { }
 
-  ionViewWillEnter() {
+  ngOnInit() {
     this.banners = this.bannerService.getBanner();
-    this.sliders = this.bannerService.getSlider();
+    this.bannerService.getSlider()
+      .subscribe(data => {
+        this.onSliderEmitted(data);
+      });
+  }
+
+  onSliderEmitted(data) {
+    this.sliders = data;
+    if( !data || !data.length) {
+      this.sliderHasData = false;
+    } else {
+      this.sliderHasData = true;
+    }
   }
 
   ionViewDidLoad() {

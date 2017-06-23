@@ -5,6 +5,7 @@ import { Http } from '@angular/http';
 export class BaseProvider {
 
 	private baseApiUrl: string = 'http://api.pizzacrust.dev';
+	// private baseApiUrl: string = 'http://192.168.8.101';
 	//private authToken: string = '';
 
 	constructor(public http: Http) { }
