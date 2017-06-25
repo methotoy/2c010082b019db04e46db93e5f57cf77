@@ -12,6 +12,7 @@
         "ionic:serve": "ionic-app-scripts serve"
     },
     "dependencies": {
+        "@angular/animations": "^4.1.2",
         "@angular/common": "4.1.2",
         "@angular/compiler": "4.1.2",
         "@angular/compiler-cli": "4.1.2",
@@ -36,6 +37,7 @@
         "ionicons": "3.0.0",
         "rxjs": "5.1.1",
         "sw-toolbox": "3.6.0",
+        "web-animations-js": "^2.2.5",
         "zone.js": "0.8.11"
     },
     "devDependencies": {
@@ -54,6 +56,9 @@
             "cordova-plugin-statusbar": {},
             "cordova-plugin-whitelist": {},
             "ionic-plugin-keyboard": {}
-        }
+        },
+        "platforms": [
+            "android"
+        ]
     }
 }

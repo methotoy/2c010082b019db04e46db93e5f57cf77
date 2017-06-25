@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController, Platform } from 'ionic-angular';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 import { ProductServiceProvider } from './../../providers/product-service/product-service';
 import { Observable } from 'rxjs';
@@ -15,6 +16,17 @@ import { Product } from './../../models/product.interface';
 @Component({
 	selector: 'page-product',
 	templateUrl: 'product.html',
+	animations: [
+		trigger('fade', [
+			state('visible', style({
+				opacity: 1
+			})),
+			state('invisible', style([{
+				opacity: 0, display: 'none'
+			}])),
+			transition('* => *', animate('.3s'))
+		])
+	]
 })
 export class ProductPage implements OnInit {
 	public productId: number | string;
@@ -23,14 +35,13 @@ export class ProductPage implements OnInit {
 	public selectedFilterId: number = 1;
 
 	public products: Observable<Product[]>;
-	public productHasData: boolean = false;
 
 	constructor(
 		private navCtrl: NavController,
 		private navParams: NavParams,
 		private viewCtrl: ViewController,
 		private plt: Platform,
-		private productService: ProductServiceProvider
+		public productService: ProductServiceProvider
 	) {
 		this.productId = navParams.get('productId');
 		this.productName = navParams.get('productName');
@@ -56,20 +67,20 @@ export class ProductPage implements OnInit {
 	}
 
 	filter(id) {
-		if(id){
+		if (id) {
 			let filterId = parseInt(id);
-			if(this.selectedFilterId !== filterId) {
-				if(this.selectedFilterId !== filterId && filterId !== 1) {
+			if (this.selectedFilterId !== filterId) {
+				if (this.selectedFilterId !== filterId && filterId !== 1) {
 					this.products = Observable.from(this.productService.product)
 						.map((data) => data.filter(a => a.Product_type === filterId.toString()));
-					} else {	
+				} else {
 					this.products = Observable.from(this.productService.product)
 						.map((data) => data.filter(a => a.Product_type !== filterId.toString()));
 				}
 				this.selectedFilterId = filterId;
 			} else {
 				this.products = Observable.from(this.productService.product)
-						.map((data) => data.filter(a => a.Product_type !== filterId.toString()));
+					.map((data) => data.filter(a => a.Product_type !== filterId.toString()));
 			}
 		}
 	}

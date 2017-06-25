@@ -20,12 +20,15 @@ export class ProductServiceProvider extends BaseProvider {
   product: Observable<Product[]>;
   filter: Observable<Filter[]>;
 
+  hasData: boolean = false;
+
   private _product: BehaviorSubject<Product[]>;
   private _filter: BehaviorSubject<Filter[]>;
   private dataStore: {
     product: Product[],
     filter: Filter[]
   };
+  private productId: number | string = null;
 
   constructor(public http: Http) {
     super(http);
@@ -37,6 +40,13 @@ export class ProductServiceProvider extends BaseProvider {
   }
 
   loadProduct(id) {
+    if(this.productId === id) {
+      console.log('Equal');
+      this.hasData = true;
+      return;
+    }
+    this.productId = id;
+    this.hasData = false;
     this.get(`/product/getProduct.php?productId=${id}`)
       .map((res: Response) => res.json())
       .subscribe(
@@ -44,7 +54,10 @@ export class ProductServiceProvider extends BaseProvider {
           this.dataStore.product = data;
           this._product.next(Object.assign({}, this.dataStore).product);
         },
-        (error) => console.error('Could not load product.',error)
+        (error) => console.error('Could not load product.',error),
+        () => {
+          this.hasData = true;
+        }
       );
   }
 

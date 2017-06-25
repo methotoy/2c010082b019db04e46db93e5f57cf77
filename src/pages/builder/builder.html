@@ -11,17 +11,17 @@
 <ion-content class="main-body">
   <ion-card *ngFor="let data of builderData; let i = index">
     <ion-list-header>
-        <span *ngIf="i === 0">Choose Your Crust’s Size</span>
-        <span *ngIf="i === 1">Select Your Sauce</span>
-        <span *ngIf="i === 2">Add Cheese</span>
-        <span *ngIf="i === 3">Choose Your Toppings</span>
+      <span *ngIf="i === 0">Choose Your Crust’s Size</span>
+      <span *ngIf="i === 1">Select Your Sauce</span>
+      <span *ngIf="i === 2">Add Cheese</span>
+      <span *ngIf="i === 3">Choose Your Toppings</span>
     </ion-list-header>
 
-    <ion-grid>
-      <ion-row>
-        <ion-col col-4 *ngFor="let item of data['pizza-size']">
+    <ion-grid *ngIf="data['pizza-size']">
+      <ion-row justify-content-center>
+        <ion-col col-auto *ngFor="let item of data['pizza-size']">
           <ion-list>
-            <ion-item class="pizcru_size_container">
+            <ion-item class="pizcru_size_container" [class.size_selected]="checkSizeSelected(item)" (click)="crustSize(item)">
               <ion-avatar item-start>
                 <div class="pizcru_builder_size">
                   {{ item?.bDescription }}
@@ -34,31 +34,72 @@
       </ion-row>
     </ion-grid>
 
-    <ion-list *ngFor="let item of data['sauce']">
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="https://pizzacrust.com.pk/public_html/upload/{{ item?.bImage }}">
-        </ion-avatar>
-        {{ item?.bName }}
-      </ion-item>
-    </ion-list>
+    <ion-grid class="pizcru_cheese_container" *ngIf="data['sauce']">
+      <ion-row justify-content-center>
+        <ion-col *ngFor="let item of data['sauce']" col-auto>
+          <div class="selected_builder" *ngIf="checkSauceSelected(item)">
+            <ion-icon name="checkmark-circle"></ion-icon>
+          </div>
+          <ion-avatar item-start (click)="crustSauce(item)">
+            <img src="https://pizzacrust.com.pk/public_html/upload/{{ item?.bImage }}">
+          </ion-avatar>
+          <p class="builder_name">{{ item?.bName }}</p>
+          <p class="builder_description">{{ item?.bDescription }}</p>
+          <p class="builder_price">Rs {{ item?.bPrice }}</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-    <ion-list *ngFor="let item of data['cheese']">
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="https://pizzacrust.com.pk/public_html/upload/{{ item?.bImage }}">
-        </ion-avatar>
-        {{ item?.bName }}
-      </ion-item>
-    </ion-list>
+    <ion-grid class="pizcru_cheese_container" *ngIf="data['cheese']">
+      <ion-row justify-content-center>
+        <ion-col *ngFor="let item of data['cheese']" col-auto>
+          <div class="selected_builder" *ngIf="checkCheeseSelected(item)">
+            <ion-icon name="checkmark-circle"></ion-icon>
+          </div>
+          <ion-avatar item-start>
+            <img src="https://pizzacrust.com.pk/public_html/upload/{{ item?.bImage }}">
+          </ion-avatar>
+          <p class="builder_name">{{ item?.bName }}</p>
+          <p class="builder_description">{{ item?.bDescription }}</p>
+          <p class="builder_price">Rs {{ item?.bPrice }}</p>
+          <ion-item>
+            <ion-label>Quantity</ion-label>
+            <ion-select #selectQuantity [interface]="'popover'">
+              <ion-option *ngFor="let number of [1,2,3,4,5,6,7]; let i = index" [value]="i + 1" [selected]="i == 0">{{ number }}</ion-option>
+            </ion-select>
+          </ion-item>
+          <button ion-button block color="primary" (click)="crustCheese(item,selectQuantity.value)">ADD</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
 
-    <ion-list *ngFor="let item of data['topping']">
-      <ion-item>
-        <ion-avatar item-start>
-          <img src="https://pizzacrust.com.pk/public_html/upload/{{ item?.bImage }}">
-        </ion-avatar>
-        {{ item?.bName }}
-      </ion-item>
-    </ion-list>
+    <ion-grid class="pizcru_cheese_container" *ngIf="data['topping']">
+      <ion-row justify-content-center>
+        <ion-col *ngFor="let item of data['topping']" col-auto>
+          <div class="selected_builder" *ngIf="checkToppingSelected(item)">
+            <ion-icon name="checkmark-circle"></ion-icon>
+          </div>
+          <ion-avatar item-start>
+            <img src="https://pizzacrust.com.pk/public_html/upload/{{ item?.bImage }}">
+          </ion-avatar>
+          <p class="builder_name">{{ item?.bName }}</p>
+          <p class="builder_description">{{ item?.bDescription }}</p>
+          <p class="builder_price">Rs {{ item?.bPrice }}</p>
+          <ion-item>
+            <ion-label>Quantity</ion-label>
+            <ion-select #selectQuantity [interface]="'popover'">
+              <ion-option *ngFor="let number of [1,2,3,4,5,6,7]; let i = index" [value]="i + 1" [selected]="i == 0">{{ number }}</ion-option>
+            </ion-select>
+          </ion-item>
+          <button ion-button block color="primary" (click)="crustTopping(item,selectQuantity.value)">ADD</button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
   </ion-card>
 </ion-content>
+
+<ion-footer>
+  <button full ion-button color="secondary">
+    SHOW ORDER
+  </button>
+</ion-footer>

@@ -18,6 +18,8 @@ page-builder {
         }
 
         &.pizcru_size_container {
+          padding-left: 0px;
+          
           ion-avatar {
             > .pizcru_builder_size {
               width: 60px;
@@ -28,6 +30,7 @@ page-builder {
               text-align: center;
               line-height: 54px;
               font-size: 20px;
+              position: relative;
             }
           }
 
@@ -41,6 +44,17 @@ page-builder {
             text-align: center;
           }
         }
+
+        &.size_selected {
+          color: #d94f2b !important;
+
+            ion-avatar {
+              > .pizcru_builder_size {
+                border: 3px solid #d94f2b !important;
+                color: #d94f2b !important;
+              }
+            }
+          }
       }
       
       ion-list-header {
@@ -53,10 +67,71 @@ page-builder {
         }
       }
 
+      .pizcru_cheese_container {
+        .selected_builder {
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          margin: auto;
+
+          ion-icon {
+            color: #d94f2b;
+            font-size: 40px;
+          }
+        }
+
+        ion-avatar {
+          position: relative;
+          height: 60px;
+
+          > img {
+            position: absolute;
+            margin: auto;
+            left: 0; right: 0;
+            top: 0; bottom: 0;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+          }
+        }
+
+        p {
+
+          &.builder_name {
+            font-family: 'Abril Fatface';
+            font-size: 20px;
+            color: #fdbc2c;
+          }
+
+          &.builder_price {
+            font-family: 'Fredericka the Great';
+            font-size: 15px;
+            color: #d94f2b;
+          }
+
+          color: #fff;
+          text-align: center;
+        }
+
+        ion-item {
+          height: 35px;
+        }
+      }
+
       // iOS
       .list-ios > ion-item {
         border: none !important;
       }
+    }
+  }
+
+  ion-footer {
+    button[ion-button]{
+      height: 4em;
+      padding: 0;
+      margin: 0;
     }
   }
 }
