@@ -24,7 +24,7 @@ import { Product } from './../../models/product.interface';
 			state('invisible', style([{
 				opacity: 0, display: 'none'
 			}])),
-			transition('* => *', animate('.5s'))
+			transition('* => *', animate('1s'))
 		])
 	]
 })
