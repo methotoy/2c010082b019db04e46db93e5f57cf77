@@ -4,9 +4,9 @@ import { Http } from '@angular/http';
 @Injectable()
 export class BaseProvider {
 
-	// private baseApiUrl: string = 'http://api.pizzacrust.dev';
-	// private baseApiUrl: string = 'http://192.168.8.101';
-	private baseApiUrl: string = 'http://192.168.254.4';
+	private baseApiUrl: string = 'http://api.pizzacrust.dev';
+	// private baseApiUrl: string = 'http://192.168.8.102';
+	// private baseApiUrl: string = 'http://192.168.254.4';
 	
 	//private authToken: string = '';
 

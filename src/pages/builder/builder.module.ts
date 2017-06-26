@@ -4,10 +4,10 @@ import { BuilderPage } from './builder';
 
 @NgModule({
   declarations: [
-    BuilderPage,
+    BuilderPage
   ],
   imports: [
-    IonicPageModule.forChild(BuilderPage),
+    IonicPageModule.forChild(BuilderPage)
   ],
   exports: [
     BuilderPage

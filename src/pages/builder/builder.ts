@@ -1,5 +1,6 @@
+import { OrderModalComponent } from './../../components/order-modal/order-modal';
 import { Component, OnInit } from '@angular/core';
-import { IonicPage } from 'ionic-angular';
+import { IonicPage, ModalController } from 'ionic-angular';
 
 import { BuilderServiceProvider } from './../../providers/builder-service/builder-service';
 
@@ -25,7 +26,8 @@ export class BuilderPage implements OnInit {
 	private selectedTopping: any[] = [];
 
 	constructor(
-		private builderService: BuilderServiceProvider
+		private builderService: BuilderServiceProvider,
+		private modalCtrl: ModalController
 	) {
 	}
 
@@ -67,17 +69,17 @@ export class BuilderPage implements OnInit {
 				}
 			}
 		}
-		
+
 		this.selectedSauce.push(data);
 	}
 
-	crustCheese(data,quantity) {
-		if(this.selectedCheese.length > 0) {
+	crustCheese(data, quantity) {
+		if (this.selectedCheese.length > 0) {
 			for (let index in this.selectedCheese) {
-				if(this.selectedCheese[index].bID === data.bID) {
+				if (this.selectedCheese[index].bID === data.bID) {
 					this.selectedCheese[index].quantity = parseInt(this.selectedCheese[index].quantity) + parseInt(quantity);
 					console.log(this.selectedCheese);
-					return; 
+					return;
 				}
 			}
 		}
@@ -85,13 +87,13 @@ export class BuilderPage implements OnInit {
 		this.selectedCheese.push(data);
 	}
 
-	crustTopping(data,quantity) {
-		if(this.selectedTopping.length > 0) {
+	crustTopping(data, quantity) {
+		if (this.selectedTopping.length > 0) {
 			for (let index in this.selectedTopping) {
-				if(this.selectedTopping[index].bID === data.bID) {
+				if (this.selectedTopping[index].bID === data.bID) {
 					this.selectedTopping[index].quantity = parseInt(this.selectedTopping[index].quantity) + parseInt(quantity);
 					console.log(this.selectedTopping);
-					return; 
+					return;
 				}
 			}
 		}
@@ -113,6 +115,19 @@ export class BuilderPage implements OnInit {
 
 	checkToppingSelected(data) {
 		return this.selectedTopping.findIndex(item => item.bName == data.bName) > -1 ? true : false;
+	}
+
+	showOrder() {
+		let orderModal = this.modalCtrl.create(OrderModalComponent, { 
+			size: this.selectedSize,
+			sauce: this.selectedSauce,
+			cheese: this.selectedCheese,
+			topping: this.selectedTopping
+		});
+		orderModal.onDidDismiss(data => {
+			console.log(data);
+		});
+		orderModal.present();
 	}
 
 }

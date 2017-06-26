@@ -3,6 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 
@@ -14,16 +15,18 @@ import { BannerServiceProvider } from '../providers/banner-service/banner-servic
 import { CategoryServiceProvider } from '../providers/category-service/category-service';
 import { ProductServiceProvider } from '../providers/product-service/product-service';
 import { DealServiceProvider } from '../providers/deal-service/deal-service';
+import { BuilderServiceProvider } from '../providers/builder-service/builder-service';
 
 import { FilterPopOverComponent } from './../components/filter-pop-over/filter-pop-over';
+import { OrderModalComponent } from './../components/order-modal/order-modal';
 
-import { IonicStorageModule } from '@ionic/storage';
-import { BuilderServiceProvider } from '../providers/builder-service/builder-service';
+
 
 @NgModule({
   declarations: [
     MyApp,
-    FilterPopOverComponent
+    FilterPopOverComponent,
+    OrderModalComponent    
   ],
   imports: [
     BrowserModule,
@@ -35,7 +38,8 @@ import { BuilderServiceProvider } from '../providers/builder-service/builder-ser
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    FilterPopOverComponent
+    FilterPopOverComponent,
+    OrderModalComponent
   ],
   providers: [
     StatusBar,
