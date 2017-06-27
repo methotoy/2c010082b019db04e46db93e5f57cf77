@@ -1,3 +1,22 @@
 page-order-modal {
+	.main-body {
+		ion-card {
+			background: rgba(0,0,0,0.5);
 
+			ion-row {
+				border-bottom: 1px solid ghostwhite;
+
+				ion-col[col-9] {
+					> span {
+						font-size: 20px;
+					}
+				}
+
+				ion-col[col-3].many-total {
+					text-align: right;
+					padding-top: 14px;
+				}
+			}
+		}
+	}
 }
