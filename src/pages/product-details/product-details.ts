@@ -73,10 +73,10 @@ export class ProductDetailsPage implements OnInit {
           this.limitDeal = data.numberofitem;
           this.dealImage = data.dealImage;
           this.dealPrice = data.dealPrice;
-          if (data.numberofitem) {
-            for (let key in data.numberofitem) {
-              for (let i = 0; i < parseInt(data.numberofitem[key]); i++) {
-                this.selectedDeal.push({ id: key, productId: null, productName: null });
+          if (typeof data.cateid) {
+            for (let key in data.cateid) {
+              if (data.cateid.hasOwnProperty(key) && data.cateid[key].length > 0) {
+                this.selectedDeal.push({ id: data.cateid[key], productId: null, productName: null });
               }
             }
           }
@@ -199,7 +199,7 @@ export class ProductDetailsPage implements OnInit {
 
       setTimeout(() => {
         this.pizcruHeaderComponent.openCart();
-      },1500);
+      }, 1500);
 
       setTimeout(() => {
         loading.dismiss();
@@ -242,7 +242,7 @@ export class ProductDetailsPage implements OnInit {
 
       setTimeout(() => {
         this.pizcruHeaderComponent.openCart();
-      },1500);
+      }, 1500);
 
       setTimeout(() => {
         loading.dismiss();

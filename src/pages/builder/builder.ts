@@ -1,4 +1,3 @@
-import { OrderModalComponent } from './../../components/order-modal/order-modal';
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, ModalController } from 'ionic-angular';
 
@@ -118,7 +117,7 @@ export class BuilderPage implements OnInit {
 	}
 
 	showOrder() {
-		let orderModal = this.modalCtrl.create(OrderModalComponent, { 
+		let orderModal = this.modalCtrl.create('OrderModal', { 
 			size: this.selectedSize,
 			sauce: this.selectedSauce,
 			cheese: this.selectedCheese,

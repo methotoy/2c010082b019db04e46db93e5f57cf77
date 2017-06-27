@@ -18,15 +18,11 @@ import { DealServiceProvider } from '../providers/deal-service/deal-service';
 import { BuilderServiceProvider } from '../providers/builder-service/builder-service';
 
 import { FilterPopOverComponent } from './../components/filter-pop-over/filter-pop-over';
-import { OrderModalComponent } from './../components/order-modal/order-modal';
-
-
 
 @NgModule({
   declarations: [
     MyApp,
-    FilterPopOverComponent,
-    OrderModalComponent    
+    FilterPopOverComponent
   ],
   imports: [
     BrowserModule,
@@ -38,13 +34,12 @@ import { OrderModalComponent } from './../components/order-modal/order-modal';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    FilterPopOverComponent,
-    OrderModalComponent
+    FilterPopOverComponent
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     BaseProvider,
     BannerServiceProvider,
     CategoryServiceProvider,
@@ -53,4 +48,4 @@ import { OrderModalComponent } from './../components/order-modal/order-modal';
     BuilderServiceProvider
   ]
 })
-export class AppModule {}
+export class AppModule { }
