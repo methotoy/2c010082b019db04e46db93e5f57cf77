@@ -77,7 +77,6 @@ export class BuilderPage implements OnInit {
 			for (let index in this.selectedCheese) {
 				if (this.selectedCheese[index].bID === data.bID) {
 					this.selectedCheese[index].quantity = parseInt(this.selectedCheese[index].quantity) + parseInt(quantity);
-					console.log(this.selectedCheese);
 					return;
 				}
 			}
@@ -91,7 +90,6 @@ export class BuilderPage implements OnInit {
 			for (let index in this.selectedTopping) {
 				if (this.selectedTopping[index].bID === data.bID) {
 					this.selectedTopping[index].quantity = parseInt(this.selectedTopping[index].quantity) + parseInt(quantity);
-					console.log(this.selectedTopping);
 					return;
 				}
 			}
@@ -117,14 +115,22 @@ export class BuilderPage implements OnInit {
 	}
 
 	showOrder() {
-		let orderModal = this.modalCtrl.create('OrderModal', { 
+		let orderModal = this.modalCtrl.create('OrderModal', {
 			size: this.selectedSize,
 			sauce: this.selectedSauce,
 			cheese: this.selectedCheese,
 			topping: this.selectedTopping
 		});
 		orderModal.onDidDismiss(data => {
-			console.log(data);
+			if (data.sauce) {
+				this.selectedSauce = data.sauce;
+			}
+			if (data.cheese) {
+				this.selectedCheese = data.cheese;
+			}
+			if(data.topping) {
+				this.selectedTopping = data.topping;
+			}
 		});
 		orderModal.present();
 	}

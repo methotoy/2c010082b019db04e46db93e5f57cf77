@@ -37,6 +37,7 @@ export class CartPage implements OnInit {
     this.storage.get('cart').then(
       (result) => {
         this.items = JSON.parse(result);
+        console.log(this.items);
         this.itemsHasData = true;
       }
     );

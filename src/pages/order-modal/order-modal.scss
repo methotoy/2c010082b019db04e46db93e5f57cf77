@@ -1,4 +1,6 @@
 page-order-modal {
+	font-family: 'Josefin Sans', Helvetica, sans-serif;
+
 	.main-body {
 		ion-card {
 			background: rgba(0,0,0,0.5);
@@ -6,9 +8,13 @@ page-order-modal {
 			ion-row {
 				border-bottom: 1px solid ghostwhite;
 
+				&.no-border-bottom {
+					border: none;
+				}
+
 				ion-col[col-9] {
 					> span {
-						font-size: 20px;
+						font-size: 30px;
 					}
 				}
 
@@ -18,5 +24,15 @@ page-order-modal {
 				}
 			}
 		}
+
+		ion-grid ion-row button {
+      color: white;
+      height: 40px;
+
+      ion-icon {
+        padding-right: 5px;
+        font-size: 20px;
+      }
+    }
 	}
 }

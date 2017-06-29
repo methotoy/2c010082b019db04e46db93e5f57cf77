@@ -64,7 +64,6 @@ export class PizcruHeaderComponent implements OnInit {
   }
 
   openCart() {
-    console.log(this.pageTitle);
     this.navCtrl.push('CartPage', { prevPage: this.pageTitle });
 		this.navCtrl.canGoBack();
 		this.navCtrl.canSwipeBack();

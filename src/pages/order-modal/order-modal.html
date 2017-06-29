@@ -5,7 +5,7 @@
     </ion-title>
     <ion-buttons start>
       <button ion-button (click)="dismiss()">
-        <span ion-text color="primary" showWhen="ios">Cancel</span>
+        <span ion-text color="primary" showWhen="ios">Close</span>
         <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
       </button>
     </ion-buttons>
@@ -38,14 +38,13 @@
         <ion-col col-9>
           SAUCE: {{ s?.bName }} {{ s?.bDescription }} <br>
           <span>
-            <ion-icon name="remove-circle"></ion-icon>
-            <ion-icon name="add-circle"></ion-icon>
+            <ion-icon name="remove-circle" tappable (click)="deleteSauceQuantity(s.bID)"></ion-icon>
+            <ion-icon name="add-circle" tappable (click)="addSauceQuantity(s.bID)"></ion-icon>
           </span>
           <span [style.color]="'#d94f2b'"> x {{ s?.quantity || 1 }}</span>
         </ion-col>
         <ion-col col-3 class="many-total">
-          <br>
-          Rs {{ s?.bPrice }}.00
+          <br> Rs {{ s?.bPrice * ((s?.quantity)? s?.quantity : 1) }}.00
         </ion-col>
       </ion-row>
 
@@ -53,14 +52,13 @@
         <ion-col col-9>
           CHEESE: {{ c?.bName }} {{ c?.bDescription }} <br>
           <span>
-            <ion-icon name="remove-circle"></ion-icon>
-            <ion-icon name="add-circle"></ion-icon>
+            <ion-icon name="remove-circle" tappable (click)="deleteCheeseQuantity(c.bID)"></ion-icon>
+            <ion-icon name="add-circle" tappable (click)="addCheeseQuantity(c.bID)"></ion-icon>
           </span>
           <span [style.color]="'#d94f2b'"> x {{ c?.quantity }}</span>
         </ion-col>
         <ion-col col-3 class="many-total">
-          <br>
-          Rs {{ c?.bPrice }}.00
+          <br> Rs {{ c?.bPrice * ((c?.quantity)? c?.quantity : 1) }}.00
         </ion-col>
       </ion-row>
 
@@ -68,22 +66,38 @@
         <ion-col col-9>
           TOPPING: {{ t?.bName }} {{ t?.bDescription }} <br>
           <span>
-            <ion-icon name="remove-circle"></ion-icon>
-            <ion-icon name="add-circle"></ion-icon>
+            <ion-icon name="remove-circle" tappable (click)="deleteToppingQuantity(t.bID)"></ion-icon>
+            <ion-icon name="add-circle" tappable (click)="addToppingQuantity(t.bID)"></ion-icon>
           </span>
           <span [style.color]="'#d94f2b'"> x {{ t?.quantity }}</span>
         </ion-col>
         <ion-col col-3 class="many-total">
-          <br>
-          Rs {{ t?.bPrice }}.00
+          <br> Rs {{ t?.bPrice * ((t?.quantity)? t?.quantity : 1) }}.00
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="no-border-bottom">
+        <ion-col col-6>
+          <span style="color:#d94f2b;font-size:15px;"> Order Total</span>
+        </ion-col>
+        <ion-col col-6 style="text-align:right;">
+          Rs {{ totalPrice() }}.00
         </ion-col>
       </ion-row>
     </ion-grid>
   </ion-card>
-</ion-content>
 
-<ion-footer>
-  <button full ion-button color="secondary">
-    SUBMIT ORDER
-  </button>
-</ion-footer>
+  <ion-grid>
+    <ion-row>
+      <button ion-button block color="primary" (click)="addToCart()">
+        <ion-icon name="cart"></ion-icon>
+        Add to cart
+      </button>
+
+      <button ion-button block color="primary">
+        <ion-icon name="star"></ion-icon>
+        Add to favorites
+      </button>
+    </ion-row>
+  </ion-grid>
+</ion-content>
