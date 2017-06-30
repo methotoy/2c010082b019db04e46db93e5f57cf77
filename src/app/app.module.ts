@@ -18,6 +18,7 @@ import { DealServiceProvider } from '../providers/deal-service/deal-service';
 import { BuilderServiceProvider } from '../providers/builder-service/builder-service';
 
 import { FilterPopOverComponent } from './../components/filter-pop-over/filter-pop-over';
+import { BranchServiceProvider } from '../providers/branch-service/branch-service';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { FilterPopOverComponent } from './../components/filter-pop-over/filter-p
     CategoryServiceProvider,
     ProductServiceProvider,
     DealServiceProvider,
-    BuilderServiceProvider
+    BuilderServiceProvider,
+    BranchServiceProvider
   ]
 })
 export class AppModule { }

@@ -11,7 +11,7 @@
 <ion-content no-padding class="main-body">
   <ion-card>
     <ion-card-content>
-      <ion-list *ngIf="itemsHasData" >
+      <ion-item-group *ngIf="itemsHasData" >
         <ion-item *ngFor="let item of items">
           <ion-thumbnail item-start>
             <img src="{{ (item?.image === 'logo')? '/assets/img/logo_mod-a.png' : 'https://pizzacrust.com.pk/public_html/upload/'+ item?.image }}" width="50">
@@ -26,7 +26,16 @@
           <p><span>{{ item?.quantity || 1 }} x</span> Rs {{ item?.price }}</p>
           <button ion-button clear item-end color="danger" (click)="remove(item.id)">Remove</button>
         </ion-item>
-      </ion-list>
+        <ion-item-divider>
+          <span [style.float]="'left'">ORDER TOTAL</span> Rs {{ total }}.00
+        </ion-item-divider>
+      </ion-item-group>
     </ion-card-content>
   </ion-card>
 </ion-content>
+
+<ion-footer>
+  <button full ion-button color="primary" (click)="checkout()">
+    CHECKOUT
+  </button>
+</ion-footer>

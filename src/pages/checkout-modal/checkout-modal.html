@@ -1,0 +1,78 @@
+<ion-header>
+	<ion-toolbar color="dark">
+		<ion-title>
+			Make Order
+		</ion-title>
+		<ion-buttons start>
+			<button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Close</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+		</ion-buttons>
+	</ion-toolbar>
+</ion-header>
+
+
+<ion-content class="main-body">
+	<ion-card padding>
+		<ion-item>
+			<ion-label color="primary">Select Branch <span [style.color]="'red'">*</span></ion-label>
+			<ion-select [(ngModel)]="selectedBranch" interface="popover" #branch (ionChange)="updateArea(branch.value)">
+				<ion-option [value]="b" *ngFor="let b of branches | async">{{ b?.branchName }}</ion-option>
+			</ion-select>
+		</ion-item>
+
+		<ion-item>
+			<ion-label color="primary">Select Area <span [style.color]="'red'">*</span></ion-label>
+			<ion-select [(ngModel)]="selectedArea" interface="popover" #area>
+				<ion-option value="{{ a?.areaID }}" *ngFor="let a of areas">{{ a?.areaName }}</ion-option>
+			</ion-select>
+		</ion-item>
+
+		<ion-item>
+			<ion-label color="primary">Full Name <span [style.color]="'red'">*</span></ion-label>
+			<ion-input [value]="fullName" [(ngModel)]="fullName"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label color="primary">Email <span [style.color]="'red'">*</span></ion-label>
+			<ion-input type="email" [value]="email" [(ngModel)]="email"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label color="primary">Phone <span [style.color]="'red'">*</span></ion-label>
+			<ion-input [value]="phone" [(ngModel)]="phone"></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label color="primary">Extra Request</ion-label>
+			<ion-input [value]="extraRequest" [(ngModel)]="extraRequest" ></ion-input>
+		</ion-item>
+
+		<ion-item>
+			<ion-label color="primary">Full Address with <br> Nearest Landmark <span [style.color]="'red'">*</span></ion-label>
+			<ion-textarea [value]="address" [(ngModel)]="address"></ion-textarea>
+		</ion-item>
+
+		<ion-item>
+			<ion-label color="primary">Payment Method <span [style.color]="'red'">*</span></ion-label>
+			<ion-select [(ngModel)]="selectedPayment" interface="popover" #payment>
+				<ion-option value="Cash on Delivery">Cash on Delivery</ion-option>
+				<ion-option value="Take Away">Take Away</ion-option>
+				<ion-option value="Credit Card on Delivery">Credit Card on Delivery</ion-option>
+			</ion-select>
+		</ion-item>
+
+		<ion-item>
+			<ion-label color="primary">Have a coupon?</ion-label>
+			<ion-input [value]="coupon" [(ngModel)]="coupon"></ion-input>
+		</ion-item>
+	</ion-card>
+</ion-content>
+
+<ion-footer>
+  <!--<button full ion-button color="secondary" (click)="order()" [disabled]="!validFields()">-->
+  <button full ion-button color="secondary" (click)="order()">
+    ORDER
+  </button>
+</ion-footer>

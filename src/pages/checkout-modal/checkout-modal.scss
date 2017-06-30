@@ -1,0 +1,38 @@
+page-checkout-modal {
+  font-family: 'Josefin Sans', Helvetica, sans-serif;
+
+  .main-body {
+    ion-card {
+      background: rgba(0,0,0,0.7);
+    }
+
+    ion-item:first-child {
+      border-top: 1px solid #d94f2b !important;
+    }
+
+    ion-item {
+      background: transparent;
+      padding-left: 0px;
+      color: white;
+      border-bottom: 1px solid #d94f2b !important;
+
+      .item-inner {
+        padding-left: 8px;
+        border: none !important;
+        box-shadow: none !important;
+
+        .text-input {
+          text-align: right;
+        }
+      }
+    }
+  }
+
+  ion-footer {
+    button[ion-button]{
+      height: 4em;
+      padding: 0;
+      margin: 0;
+    }
+  }
+}
