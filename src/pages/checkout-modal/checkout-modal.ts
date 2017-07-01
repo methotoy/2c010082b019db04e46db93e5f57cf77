@@ -69,14 +69,22 @@ export class CheckoutModal implements OnInit {
 			(result) => {
 				let res = JSON.parse(result);
 				for (let index in res) {
+          let options = [];
+          let itemSelected: any[] = res[index].itemSelected || [];
+          if(itemSelected.length > 0) {
+            for(let i in itemSelected) {
+              options.push(itemSelected[i].productName);
+            }
+          }
+
           itemsz[res[index].id] = {
             name: res[index].product,
             image: `public_html/upload/${res[index].image}`,
-            price: res[index].price,
-            quantity: res[index].price,
+            quantity: res[index].quantity,
             size_name: res[index].size || "",
-            option: res[index].itemSelected || "",
-            total: parseInt(res[index].price) * (parseInt(res[index].quantity))
+            price: res[index].price,
+            total: parseInt(res[index].price) * (parseInt(res[index].quantity)),
+            options: (options.length > 0)? options : ""
           };
 					total += (parseInt(res[index].price) * parseInt(res[index].quantity));
 				}
