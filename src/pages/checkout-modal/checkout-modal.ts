@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, ViewController } from 'ionic-angular';
+import { IonicPage, ViewController, LoadingController } from 'ionic-angular';
 import { BranchServiceProvider } from './../../providers/branch-service/branch-service';
 import { Observable } from 'rxjs';
 import { Storage } from '@ionic/storage';
@@ -17,10 +17,10 @@ import { Storage } from '@ionic/storage';
 })
 export class CheckoutModal implements OnInit {
 
-  public selectedBranch: any[] = [];
+  public selectedBranch: any;
   public branches: Observable<Array<any>>;
 
-  public selectedArea: any[] = [];
+  public selectedArea: any;
   public areas: any[] = [];
 
   public selectedPayment: string = 'Cash on Delivery';
@@ -34,7 +34,8 @@ export class CheckoutModal implements OnInit {
   constructor(
     private viewCtrl: ViewController,
     private branchService: BranchServiceProvider,
-    private storage: Storage
+    private storage: Storage,
+    private ldngCtrl: LoadingController
   ) { }
 
   ngOnInit() {
@@ -46,7 +47,9 @@ export class CheckoutModal implements OnInit {
   }
 
   dismiss() {
-    this.viewCtrl.dismiss();
+    this.viewCtrl.dismiss({
+      emptyCart: false
+    });
   }
 
   updateArea(branchArea) {
@@ -55,7 +58,13 @@ export class CheckoutModal implements OnInit {
 
   validFields() {
     let valid = false;
-    if (this.fullName && this.email && this.phone && this.address && this.selectedBranch && this.selectedArea) {
+    if (this.fullName &&
+      this.email &&
+      this.phone &&
+      this.address &&
+      this.selectedBranch &&
+      this.selectedArea
+    ) {
       valid = true;
     }
 
@@ -63,16 +72,22 @@ export class CheckoutModal implements OnInit {
   }
 
   order() {
+    let loading = this.ldngCtrl.create({
+      content: 'Sending Order Request... Please wait...'
+    });
+
+    loading.present();
+
     let total = 0;
     let itemsz = {};
     this.storage.get('cart').then(
-			(result) => {
-				let res = JSON.parse(result);
-				for (let index in res) {
+      (result) => {
+        let res = JSON.parse(result);
+        for (let index in res) {
           let options = [];
           let itemSelected: any[] = res[index].itemSelected || [];
-          if(itemSelected.length > 0) {
-            for(let i in itemSelected) {
+          if (itemSelected.length > 0) {
+            for (let i in itemSelected) {
               options.push(itemSelected[i].productName);
             }
           }
@@ -84,10 +99,10 @@ export class CheckoutModal implements OnInit {
             size_name: res[index].size || "",
             price: res[index].price,
             total: parseInt(res[index].price) * (parseInt(res[index].quantity)),
-            options: (options.length > 0)? options : ""
+            options: (options.length > 0) ? options : ""
           };
-					total += (parseInt(res[index].price) * parseInt(res[index].quantity));
-				}
+          total += (parseInt(res[index].price) * parseInt(res[index].quantity));
+        }
 
         let data = [{
           customerName: this.fullName,
@@ -105,11 +120,26 @@ export class CheckoutModal implements OnInit {
 
         this.branchService.postOrder(data)
           .subscribe(
-          (result) => console.log(result),
-          (error) => console.error(error)
-        );
-			}
-		);
+          (result) => {
+            console.log('status' in result);
+            if(result && typeof result === 'object' && 'status' in result && result.status) {
+              this.storage.set('cart', null);
+              console.log('Empty Cart Storage');
+            }
+          },
+          (error) => {
+            loading.dismiss();
+            console.error(error);
+          },
+          () => setTimeout(() => {
+            loading.dismiss();
+            this.viewCtrl.dismiss({
+              emptyCart: true
+            });
+          }, 1000)
+          );
+      }
+    );
   }
 
 }

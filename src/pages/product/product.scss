@@ -28,7 +28,7 @@ page-product {
 
 						@each $menu in 'Pizza' 'Pasta' 'Deserts' 'Appetizer' 'Beverages' 'Deal' 'Sandwiches' {
 						.image-#{$menu} {
-							background-image: url(../../assets/img/#{$menu}_sample.png);
+							background-image: url(./../../assets/img/#{$menu}_sample.png);
 						}
 					}
 				}

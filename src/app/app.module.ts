@@ -19,6 +19,7 @@ import { BuilderServiceProvider } from '../providers/builder-service/builder-ser
 
 import { FilterPopOverComponent } from './../components/filter-pop-over/filter-pop-over';
 import { BranchServiceProvider } from '../providers/branch-service/branch-service';
+import { AppServiceProvider } from '../providers/app-service/app-service';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { BranchServiceProvider } from '../providers/branch-service/branch-servic
     ProductServiceProvider,
     DealServiceProvider,
     BuilderServiceProvider,
-    BranchServiceProvider
+    BranchServiceProvider,
+    AppServiceProvider
   ]
 })
 export class AppModule { }

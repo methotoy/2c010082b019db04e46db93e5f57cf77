@@ -12,7 +12,7 @@
 		<ion-row responsive-sm wrap>
 			<ion-col *ngFor="let category of categories | async" col-6>
 				<ion-card (click)="openProduct(category.iCategoryId,deleteSpace(category.vName))" tappable>
-					<div [class]="'pizcru-menu-image image-'+deleteSpace(category.vName)"></div>
+					<div [class]="'image-'+deleteSpace(category.vName)"></div>
 					<ion-label class="pizcru-menu-label">
 						{{ category.vName }}
 					</ion-label>

@@ -18,19 +18,15 @@ page-category {
 					font-size: 20px;
 					color: #fdbc2c;
 
-						.pizcru-menu-image {
-							// background: url('/assets/img/deals_sample.jpeg');
-							background-size: cover;
-							height: 75%;
-						}
-
 						.pizcru-menu-label {
 							margin-right: 0px;
 						}
 
-						@each $menu in 'Pizza' 'Pasta' 'Deserts' 'Appetizer' 'Beverages' 'Deal' 'Sandwiches' {
+						@each $menu in 'pizza' 'pasta' 'deserts' 'beverages' 'appetizer' 'sandwiches' {
 						.image-#{$menu} {
-							background-image: url('/assets/img/#{$menu}_sample.png');
+							background: url('../assets/img/#{$menu}.png') no-repeat right top;
+							background-size: cover;
+							height: 75%;
 						}
 					}
 				}

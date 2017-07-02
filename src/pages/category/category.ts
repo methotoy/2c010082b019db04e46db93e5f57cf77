@@ -36,7 +36,8 @@ export class CategoryPage implements OnInit {
   }
 
   deleteSpace(data) {
-    return data.replace(" ", "");
+    data = data.replace(" ", "");
+    return data.toLowerCase();
   }
 
   openProduct(id: number | string, name: string) {

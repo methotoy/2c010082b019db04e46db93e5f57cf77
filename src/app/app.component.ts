@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AppServiceProvider } from './../providers/app-service/app-service';
 
 @Component({
   templateUrl: 'app.html'
@@ -11,13 +12,14 @@ export class MyApp {
 
   rootPage: string = 'HomePage';
 
-  mainPages: any;
-  otherPages: any;
+  mainPages: any[] = [];
+  otherPages: any[] = [];
 
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
-    public splashScreen: SplashScreen
+    public splashScreen: SplashScreen,
+    private appService: AppServiceProvider
   ) {
     this.initializeApp();
 

@@ -36,6 +36,10 @@ export class CartPage implements OnInit {
 	}
 
 	ngOnInit() {
+		this.loadCart();
+	}
+
+	loadCart() {
 		this.storage.get('cart').then(
 			(result) => {
 				this.items = JSON.parse(result);
@@ -64,7 +68,12 @@ export class CartPage implements OnInit {
 						for (let index in this.items) {
 							this.total += (parseInt(this.items[index].price) * parseInt(this.items[index].quantity));
 						}
-						this.storage.set('cart', JSON.stringify(this.items));
+						if(this.items.length > 0) {
+							this.storage.set('cart', JSON.stringify(this.items));
+						} else {
+							this.items = null;
+							this.storage.set('cart', null);
+						}
 					}
 				}
 			]
@@ -75,6 +84,12 @@ export class CartPage implements OnInit {
 	checkout() {
 		let checkOutModal = this.modalCtrl.create('CheckoutModal');
 		checkOutModal.present();
+		checkOutModal.onDidDismiss(data => {
+			if(data && typeof data === 'object' && 'emptyCart' in data && data.emptyCart) {
+				this.loadCart();
+				this.total = 0;
+			}
+		});
 	}
 
 }
