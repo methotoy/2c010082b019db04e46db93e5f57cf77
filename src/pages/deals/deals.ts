@@ -22,16 +22,24 @@ export class DealsPage implements OnInit {
   public selectedFilterId: number = 1;
 
   public pageTitle: string = 'Deals';
+  public prevPageTitle: string = null;
+  public productId: number | string = null;
 
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
     private dealService: DealServiceProvider
-  ) { }
+  ) {
+    this.prevPageTitle = navParams.get('prevPageTitle') || null;
+    this.productId = navParams.get('productId') || null;
+  }
 
   ngOnInit() {
     this.deals = this.dealService.deals;
     this.dealService.loadAll();
+    if(this.productId) {
+      this.filter(this.productId);
+    }
   }
 
   ionViewDidLoad() {

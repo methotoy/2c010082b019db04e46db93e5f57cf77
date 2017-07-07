@@ -13,7 +13,8 @@
 		<ion-slides *ngIf="sliderHasData; else slidesLoading" #islide 
 			[effect]="'slide'" [pager]="true" [autoplay]="3000" [loop]="true"
 			[initialSlide]="0" [speed]="300" [direction]="'horizontal'"
-			(ionSlideDidChange)="slideChanged()" color="primary">
+			(ionSlideDidChange)="slideChanged()" color="primary"
+			(ionSlideTap)="clickSlider()" tappable>
 			<ion-slide *ngFor="let slider of sliders">
 				<img src="https://pizzacrust.com.pk/public_html/main-slider/{{ slider?.bannerImage }}" height="100px">
 			</ion-slide>
@@ -23,7 +24,7 @@
 		</ng-template>
 	</div>
 
-	<ion-card no-padding class="banner-container" *ngFor="let banner of banners | async">
+	<ion-card no-padding class="banner-container" *ngFor="let banner of banners | async" (click)="clickSlider(banner)">
 		<img src="https://pizzacrust.com.pk/public_html/main-slider/{{ banner?.bannerImage }}" />
 	</ion-card>
 
@@ -37,7 +38,7 @@
 		</div>
 
 		<div class="subscribe-btn" padding>
-			<button ion-button full color="secondary">SIGN UP NOW!</button>
+			<button ion-button full color="secondary" (click)="signUp()">SIGN UP NOW!</button>
 		</div>
 	</ion-card>
 </ion-content>

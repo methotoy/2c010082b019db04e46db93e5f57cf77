@@ -1,8 +1,9 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, AlertController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 
 import { BannerServiceProvider } from './../../providers/banner-service/banner-service';
+import { DealServiceProvider } from './../../providers/deal-service/deal-service';
 
 /**
  * Generated class for the HomePage page.
@@ -15,11 +16,12 @@ import { BannerServiceProvider } from './../../providers/banner-service/banner-s
   selector: 'page-home',
   templateUrl: 'home.html',
 })
-export class HomePage implements OnInit{
+export class HomePage implements OnInit {
   @ViewChild(Slides) slides: Slides;
 
   public banners: Observable<Array<any>>;
   public sliders: Observable<Array<any>>;
+  private sliderData: any[] = [];
   public sliderHasData: boolean = false;
 
   public email: string;
@@ -27,7 +29,9 @@ export class HomePage implements OnInit{
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private bannerService: BannerServiceProvider
+    private bannerService: BannerServiceProvider,
+    private dealService: DealServiceProvider,
+    private alertCtrl: AlertController
   ) { }
 
   ngOnInit() {
@@ -40,7 +44,8 @@ export class HomePage implements OnInit{
 
   onSliderEmitted(data) {
     this.sliders = data;
-    if( !data || !data.length) {
+    this.sliderData = data;
+    if (!data || !data.length) {
       this.sliderHasData = false;
     } else {
       this.sliderHasData = true;
@@ -53,6 +58,51 @@ export class HomePage implements OnInit{
 
   slideChanged() {
     this.slides.startAutoplay();
+  }
+
+  clickSlider(data?) {
+    let link = '';
+    if (data) {
+      link = data.bannerLink;
+    } else {
+      let sliderNumber = this.slides.getActiveIndex() - 1;
+      if (this.slides.getActiveIndex() === 4) {
+        sliderNumber = 0;
+      } else if (this.slides.getActiveIndex() === 0) {
+        sliderNumber = 2;
+      }
+
+      if (this.sliderData.length > 0 && this.sliderData[sliderNumber]) {
+        link = this.sliderData[sliderNumber].bannerLink;
+      }
+    }
+
+    link = link.replace("https://pizzacrust.com.pk/", "");
+    if (link.includes('id') && (link = link.replace("deals.php?id=", ""))) {
+      this.dealService.loadAll();
+      this.navCtrl.push('DealsPage', { productId: link, prevPageTitle: 'Home' });
+      this.navCtrl.canGoBack();
+      this.navCtrl.canSwipeBack();
+    } else {
+      this.navCtrl.push('DealsPage', { prevPageTitle: 'Home' });
+    }
+  }
+
+  signUp() {
+    this.alertCtrl.create({
+      title: 'Subscribe',
+      inputs: [
+        { name: 'email', placeholder: 'Enter Email Address', type: 'email' }
+      ],
+      buttons: [
+        { text: 'Cancel', role: 'cancel' },
+        { text: 'Subscribe', handler: data => {
+          if(data) {
+            console.log(data);
+          }
+        } }
+      ]
+    }).present();
   }
 
 }
