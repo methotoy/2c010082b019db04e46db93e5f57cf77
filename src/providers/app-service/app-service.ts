@@ -22,4 +22,9 @@ export class AppServiceProvider extends BaseProvider {
       .map((res: Response) => res.json());
   }
 
+  postSubscriber(data) {
+    return this.post('/subscribe/postSubscriber.php',JSON.stringify(data))
+      .map((res: Response) => res.json());
+  }
+
 }

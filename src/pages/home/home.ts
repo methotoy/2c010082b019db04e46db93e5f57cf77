@@ -1,9 +1,10 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import { IonicPage, NavController, NavParams, Slides, AlertController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, Slides, AlertController, ToastController } from 'ionic-angular';
 import { Observable } from 'rxjs';
 
 import { BannerServiceProvider } from './../../providers/banner-service/banner-service';
 import { DealServiceProvider } from './../../providers/deal-service/deal-service';
+import { AppServiceProvider } from './../../providers/app-service/app-service';
 
 /**
  * Generated class for the HomePage page.
@@ -31,7 +32,9 @@ export class HomePage implements OnInit {
     public navParams: NavParams,
     private bannerService: BannerServiceProvider,
     private dealService: DealServiceProvider,
-    private alertCtrl: AlertController
+    private appService: AppServiceProvider,
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController
   ) { }
 
   ngOnInit() {
@@ -97,8 +100,37 @@ export class HomePage implements OnInit {
       buttons: [
         { text: 'Cancel', role: 'cancel' },
         { text: 'Subscribe', handler: data => {
-          if(data) {
-            console.log(data);
+          let regExp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+          if(data && regExp.test(data.email)) {
+            this.appService.postSubscriber(data)
+              .subscribe(
+                (response) => {
+                  let toast: any;
+                  if(status) {
+                    toast = this.toastCtrl.create({
+                      message: response.msg,
+                      duration: 2000,
+                      position: 'bottom'
+                    });
+                  } else {
+                    toast = this.toastCtrl.create({
+                      message: response.msg,
+                      duration: 2000,
+                      position: 'bottom'
+                    })
+                  }
+
+                  toast.present();
+                },
+                (error) => console.error(error),
+                () => console.log('Done!')
+              );
+          } else {
+            this.toastCtrl.create({
+              message: 'Invalid Email Format!',
+              duration: 2000,
+              position: 'bottom'
+            }).present();
           }
         } }
       ]
