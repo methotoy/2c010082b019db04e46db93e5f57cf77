@@ -34,9 +34,9 @@ export class MyApp {
     ];
 
     this.otherPages = [
-      { title: 'About Us', icon: 'alert', component: 'HomePage' },
-      { title: 'Contact Us', icon: 'call', component: 'MenuPage' },
-      { title: 'Terms of Use', icon: 'paper', component: 'MenuPage' },
+      { title: 'About Us', icon: 'alert', component: 'AboutUsPage' },
+      { title: 'Contact Us', icon: 'call', component: 'ContactUsPage' },
+      { title: 'Terms of Use', icon: 'paper', component: 'TermsOfUsePage' },
     ];
 
   }

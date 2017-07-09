@@ -17,8 +17,8 @@ export class AppServiceProvider extends BaseProvider {
     super(http);
   }
 
-  getCms() {
-    return this.get('/cms/getCms.php')
+  getCms(data) {
+    return this.get(`/cms/getCmsBySlug.php?slug=${data}`)
       .map((res: Response) => res.json());
   }
 
