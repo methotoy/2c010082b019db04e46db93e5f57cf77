@@ -76,10 +76,15 @@ export class ProductDetailsPage implements OnInit {
           if (typeof data.cateid) {
             for (let key in data.cateid) {
               if (data.cateid.hasOwnProperty(key) && data.cateid[key].length > 0) {
+                if(parseInt(data.numberofitem[data.cateid[key]]) > 1) {
+                  this.selectedDeal.push({ id: data.cateid[key], productId: null, productName: null });
+                }
                 this.selectedDeal.push({ id: data.cateid[key], productId: null, productName: null });
               }
             }
           }
+
+          console.log(this.selectedDeal);
         }
         );
     } else {
