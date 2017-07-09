@@ -8,6 +8,9 @@
 </ion-header>
 
 <ion-content class="main-body">
+	<div class="page-preloader" [@fade]="(categoryService.hasData)? 'invisible' : 'visible'">
+    <span class="spinner"></span>        
+  </div>
 	<ion-grid>
 		<ion-row responsive-sm wrap>
 			<ion-col *ngFor="let category of categories | async" col-6>

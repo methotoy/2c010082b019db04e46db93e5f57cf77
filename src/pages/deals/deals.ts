@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 import { DealServiceProvider } from './../../providers/deal-service/deal-service';
 import { Observable } from 'rxjs';
@@ -15,6 +16,17 @@ import { Deal } from './../../models/deal.interface';
 @Component({
   selector: 'page-deals',
   templateUrl: 'deals.html',
+  animations: [
+		trigger('fade', [
+			state('visible', style({
+				opacity: 1
+			})),
+			state('invisible', style([{
+				opacity: 0, display: 'none'
+			}])),
+			transition('* => *', animate('1s'))
+		])
+	]
 })
 export class DealsPage implements OnInit {
 
@@ -28,7 +40,7 @@ export class DealsPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private dealService: DealServiceProvider
+    public dealService: DealServiceProvider
   ) {
     this.prevPageTitle = navParams.get('prevPageTitle') || null;
     this.productId = navParams.get('productId') || null;

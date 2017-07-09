@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 import { CategoryServiceProvider } from './../../providers/category-service/category-service';
 import { Observable } from 'rxjs';
@@ -15,6 +16,17 @@ import { Category } from './../../models/category.interface';
 @Component({
   selector: 'page-category',
   templateUrl: 'category.html',
+  animations: [
+		trigger('fade', [
+			state('visible', style({
+				opacity: 1
+			})),
+			state('invisible', style([{
+				opacity: 0, display: 'none'
+			}])),
+			transition('* => *', animate('1s'))
+		])
+	]
 })
 export class CategoryPage implements OnInit {
 
@@ -23,7 +35,7 @@ export class CategoryPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private categoryService: CategoryServiceProvider
+    public categoryService: CategoryServiceProvider
   ) { }
 
   ngOnInit() {
@@ -44,6 +56,10 @@ export class CategoryPage implements OnInit {
     this.navCtrl.push('ProductPage', { productId: id, productName: name, prevPageTitle: 'Categories' });
     this.navCtrl.canGoBack();
 		this.navCtrl.canSwipeBack();
+  }
+
+  isEmptyData(data) {
+    return (data === 'null');
   }
 
 }

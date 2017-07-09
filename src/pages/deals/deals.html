@@ -11,6 +11,9 @@
 </ion-header>
 
 <ion-content class="main-body">
+  <div class="page-preloader" [@fade]="(dealService.hasData)? 'invisible' : 'visible'">
+    <span class="spinner"></span>        
+  </div>
   <ion-grid>
     <ion-row responsive-sm wrap>
       <ion-col *ngFor="let deal of deals | async" col-6>

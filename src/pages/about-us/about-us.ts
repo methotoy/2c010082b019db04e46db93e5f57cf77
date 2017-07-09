@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+
 import { AppServiceProvider } from './../../providers/app-service/app-service';
 
 /**
@@ -12,6 +14,17 @@ import { AppServiceProvider } from './../../providers/app-service/app-service';
 @Component({
   selector: 'page-about-us',
   templateUrl: 'about-us.html',
+  animations: [
+		trigger('fade', [
+			state('visible', style({
+				opacity: 1
+			})),
+			state('invisible', style([{
+				opacity: 0, display: 'none'
+			}])),
+			transition('* => *', animate('1s'))
+		])
+	]
 })
 export class AboutUsPage implements OnInit {
 

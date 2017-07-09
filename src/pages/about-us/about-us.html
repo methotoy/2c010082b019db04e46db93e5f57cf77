@@ -9,6 +9,9 @@
 
 
 <ion-content no-padding class="main-body">
+	<div class="page-preloader" [@fade]="(aboutUsData)? 'invisible' : 'visible'">
+    <span class="spinner"></span>        
+  </div>
 	<ion-card padding>
     <span [innerHTML]='aboutUsData'></span>
   </ion-card>

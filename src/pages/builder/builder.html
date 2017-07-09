@@ -9,6 +9,9 @@
 
 
 <ion-content class="main-body">
+  <div class="page-preloader" [@fade]="(builderHasData)? 'invisible' : 'visible'">
+    <span class="spinner"></span>        
+  </div>
   <ion-card *ngFor="let data of builderData; let i = index">
     <ion-list-header>
       <span *ngIf="i === 0">Choose Your Crust’s Size</span>
@@ -98,7 +101,7 @@
   </ion-card>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="builderHasData" >
   <button full ion-button color="primary" (click)="showOrder()">
     SHOW ORDER
   </button>

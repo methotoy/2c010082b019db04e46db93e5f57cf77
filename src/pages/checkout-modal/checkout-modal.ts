@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonicPage, ViewController, LoadingController } from 'ionic-angular';
+import { IonicPage, ViewController, LoadingController, ToastController } from 'ionic-angular';
 import { BranchServiceProvider } from './../../providers/branch-service/branch-service';
 import { Observable } from 'rxjs';
 import { Storage } from '@ionic/storage';
@@ -35,7 +35,8 @@ export class CheckoutModal implements OnInit {
     private viewCtrl: ViewController,
     private branchService: BranchServiceProvider,
     private storage: Storage,
-    private ldngCtrl: LoadingController
+    private ldngCtrl: LoadingController,
+    private toastCtrl: ToastController
   ) { }
 
   ngOnInit() {
@@ -122,9 +123,20 @@ export class CheckoutModal implements OnInit {
           .subscribe(
           (result) => {
             console.log('status' in result);
-            if(result && typeof result === 'object' && 'status' in result && result.status) {
+            if (result && typeof result === 'object' && 'status' in result && result.status) {
               this.storage.set('cart', null);
               console.log('Empty Cart Storage');
+              this.toastCtrl.create({
+                message: 'Order successfully sent. Check your email for more information.',
+                duration: 2000,
+                position: 'bottom'
+              }).present();
+            } else {
+              this.toastCtrl.create({
+                message: 'There was an error occured! Please try again!',
+                duration: 2000,
+                position: 'bottom'
+              }).present();
             }
           },
           (error) => {
@@ -140,6 +152,10 @@ export class CheckoutModal implements OnInit {
           );
       }
     );
+  }
+
+  isEmptyObject(data) {
+    return (data === 'null');
   }
 
 }

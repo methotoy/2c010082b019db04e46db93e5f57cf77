@@ -13,7 +13,7 @@
   <div class="page-preloader" [@fade]="(productService.hasData)? 'invisible' : 'visible'">
     <span class="spinner"></span>        
   </div>
-  <ion-grid *ngIf="productService.hasData">
+  <ion-grid>
     <ion-row justify-content-between>
       <ion-col *ngFor="let product of products | async" col-6>
         <ion-card (click)="openProduct(product.iProductId,product.vName)" tappable>

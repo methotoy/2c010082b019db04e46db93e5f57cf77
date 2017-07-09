@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, AlertController, NavParams, ModalController } from 'ionic-angular';
+import { trigger, state, style, transition, animate } from '@angular/animations';
+
 import { Storage } from '@ionic/storage';
 
 /**
@@ -12,6 +14,17 @@ import { Storage } from '@ionic/storage';
 @Component({
 	selector: 'page-cart',
 	templateUrl: 'cart.html',
+	animations: [
+		trigger('fade', [
+			state('visible', style({
+				opacity: 1
+			})),
+			state('invisible', style([{
+				opacity: 0, display: 'none'
+			}])),
+			transition('* => *', animate('1s'))
+		])
+	]
 })
 export class CartPage implements OnInit {
 

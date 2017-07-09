@@ -17,6 +17,7 @@ import { Category } from '../../models/category.interface';
 @Injectable()
 export class CategoryServiceProvider extends BaseProvider {
   category: Observable<Category[]>;
+  hasData: boolean = false;
 
   private _category: BehaviorSubject<Category[]>;
   private dataStore: {
@@ -38,7 +39,8 @@ export class CategoryServiceProvider extends BaseProvider {
           this.dataStore.category = data;
           this._category.next(Object.assign({}, this.dataStore).category);
         },
-        (error) => console.error('Could not load category.',error)
+        (error) => console.error('Could not load category.',error),
+        () => this.hasData = true
       );
   }
 }        

@@ -9,6 +9,9 @@
 
 
 <ion-content no-padding class="main-body">
+  <div class="page-preloader" [@fade]="(itemsHasData)? 'invisible' : 'visible'">
+    <span class="spinner"></span>        
+  </div>
   <ion-card>
     <ion-card-content>
       <ion-item-group *ngIf="itemsHasData && items; else noData" >
@@ -43,7 +46,7 @@
   </ion-card>
 </ion-content>
 
-<ion-footer>
+<ion-footer *ngIf="itemsHasData" >
   <button full ion-button color="primary" (click)="checkout()" [disabled]="!items">
     CHECKOUT
   </button>

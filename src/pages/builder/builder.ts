@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicPage, ModalController } from 'ionic-angular';
+import { trigger, state, style, transition, animate } from '@angular/animations';
 
 import { BuilderServiceProvider } from './../../providers/builder-service/builder-service';
 
@@ -13,6 +14,17 @@ import { BuilderServiceProvider } from './../../providers/builder-service/builde
 @Component({
 	selector: 'page-builder',
 	templateUrl: 'builder.html',
+	animations: [
+		trigger('fade', [
+			state('visible', style({
+				opacity: 1
+			})),
+			state('invisible', style([{
+				opacity: 0, display: 'none'
+			}])),
+			transition('* => *', animate('1s'))
+		])
+	]
 })
 export class BuilderPage implements OnInit {
 
@@ -25,7 +37,7 @@ export class BuilderPage implements OnInit {
 	private selectedTopping: any[] = [];
 
 	constructor(
-		private builderService: BuilderServiceProvider,
+		public builderService: BuilderServiceProvider,
 		private modalCtrl: ModalController
 	) {
 	}
@@ -45,8 +57,8 @@ export class BuilderPage implements OnInit {
 						this.selectedSize.push(this.builderData[index]['pizza-size'][0]);
 					}
 				}
+				this.builderHasData = true
 			}
-			// () => this.builderHasData = true
 			);
 	}
 

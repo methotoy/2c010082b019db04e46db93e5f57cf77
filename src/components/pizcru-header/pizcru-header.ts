@@ -38,6 +38,9 @@ export class PizcruHeaderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    if(this.pageTitle) {
+      this.pageTitle = `${this.pageTitle.charAt(0).toUpperCase()}${this.pageTitle.slice(1)}`;
+    }
     if (this.plt.is('ios')) {
       this.viewCtrl.setBackButtonText(this.prevPageTitle);
     }

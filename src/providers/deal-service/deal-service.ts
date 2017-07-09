@@ -18,6 +18,8 @@ import { Deal } from '../../models/deal.interface';
 export class DealServiceProvider extends BaseProvider {
   deals: Observable<Deal[]>;
 
+  hasData: boolean = false;
+
   private _deals: BehaviorSubject<Deal[]>;
   private dataStore: {
     deals: Deal[]
@@ -38,7 +40,8 @@ export class DealServiceProvider extends BaseProvider {
           this.dataStore.deals = data;
           this._deals.next(Object.assign({}, this.dataStore).deals);
         },
-        (error) => console.error('Could not load deals.',error)
+        (error) => console.error('Could not load deals.',error),
+        () => this.hasData = true
       );
   }
 }        

@@ -15,19 +15,27 @@
 
 <ion-content class="main-body">
 	<ion-card padding>
-		<ion-item>
-			<ion-label color="primary">Select Branch <span [style.color]="'red'">*</span></ion-label>
-			<ion-select [(ngModel)]="selectedBranch" interface="popover" #branch (ionChange)="updateArea(branch.value)">
-				<ion-option [value]="b" *ngFor="let b of branches | async">{{ b?.branchName }}</ion-option>
-			</ion-select>
-		</ion-item>
+		<div *ngIf="!isEmptyObject(branches | async | json); else noBranchesData">
+			<ion-item>
+				<ion-label color="primary">Select Branch <span [style.color]="'red'">*</span></ion-label>
+				<ion-select [(ngModel)]="selectedBranch" interface="popover" #branch (ionChange)="updateArea(branch.value)">
+					<ion-option [value]="b" *ngFor="let b of branches | async">{{ b?.branchName }}</ion-option>
+				</ion-select>
+			</ion-item>
 
-		<ion-item>
-			<ion-label color="primary">Select Area <span [style.color]="'red'">*</span></ion-label>
-			<ion-select [(ngModel)]="selectedArea" interface="popover" #area>
-				<ion-option value="{{ a?.areaID }}" *ngFor="let a of areas">{{ a?.areaName }}</ion-option>
-			</ion-select>
-		</ion-item>
+			<ion-item>
+				<ion-label color="primary">Select Area <span [style.color]="'red'">*</span></ion-label>
+				<ion-select [(ngModel)]="selectedArea" interface="popover" #area>
+					<ion-option value="{{ a?.areaID }}" *ngFor="let a of areas">{{ a?.areaName }}</ion-option>
+				</ion-select>
+			</ion-item>
+		</div>
+
+		<ng-template #noBranchesData>
+			<ion-item>
+				<ion-spinner name="bubbles" color="primary" style="height:61px;width:100%;"></ion-spinner>
+			</ion-item>
+		</ng-template>
 
 		<ion-item>
 			<ion-label color="primary">Full Name <span [style.color]="'red'">*</span></ion-label>
@@ -46,7 +54,7 @@
 
 		<ion-item>
 			<ion-label color="primary">Extra Request</ion-label>
-			<ion-input [value]="extraRequest" [(ngModel)]="extraRequest" ></ion-input>
+			<ion-input [value]="extraRequest" [(ngModel)]="extraRequest"></ion-input>
 		</ion-item>
 
 		<ion-item>
@@ -71,7 +79,7 @@
 </ion-content>
 
 <ion-footer>
-  <button full ion-button color="secondary" (click)="order()" [disabled]="!validFields()">
+	<button full ion-button color="secondary" (click)="order()" [disabled]="!validFields() && !isEmptyObject(branches | async | json)">
   <!--<button full ion-button color="secondary" (click)="order()">-->
     ORDER
   </button>
