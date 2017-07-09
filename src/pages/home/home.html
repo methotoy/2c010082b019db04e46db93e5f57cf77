@@ -16,7 +16,7 @@
 			(ionSlideDidChange)="slideChanged()" color="primary"
 			(ionSlideTap)="clickSlider()" tappable>
 			<ion-slide *ngFor="let slider of sliders">
-				<img src="https://pizzacrust.com.pk/public_html/main-slider/{{ slider?.bannerImage }}" height="100px">
+				<img src="https://pizzacrust.com.pk/public_html/main-slider/{{ slider?.bannerImage }}" >
 			</ion-slide>
 		</ion-slides>
 		<ng-template #slidesLoading>

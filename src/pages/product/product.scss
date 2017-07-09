@@ -11,25 +11,76 @@ page-product {
 				ion-card {
 					position: relative;
 					text-align: center;
-					height: 180px;
 					background: #151515;
 					box-shadow: 0 2px 0 0 rgba(245, 61, 61, 0.14), 0 3px 1px -2px rgba(245, 61, 61, 0.02), 0 1px 5px 0 rgba(245, 61, 61, 0.12);
 					font-family: 'Abril Fatface';
 
-						.pizcru-menu-image {
-							// background: url('/assets/img/deals_sample.jpeg');
-							background-size: cover;
-							height: 75%;
-						}
+					img {
+						height: 250px;
+					}
 
-						.pizcru-menu-label {
-							margin-right: 0px;
+					@media screen and (min-width: 240px) {
+						img {
+							height: 100px;
 						}
+					}
 
-						@each $menu in 'Pizza' 'Pasta' 'Deserts' 'Appetizer' 'Beverages' 'Deal' 'Sandwiches' {
-						.image-#{$menu} {
-							background-image: url(./../../assets/img/#{$menu}_sample.png);
+					@media screen and (min-width: 320px) {
+						img {
+							height: 140px;
 						}
+					}
+
+					@media screen and (min-width: 400px) {
+						img {
+							height: 160px;
+						}
+					}
+
+					@media screen and (min-width: 480px) {
+						img {
+							height: 200px;
+						}
+					}
+
+					@media screen and (min-width: 540px) {
+						img {
+							height: 220px;
+						}
+					}
+
+					@media screen and (min-width: 600px) {
+						img {
+							height: 250px;
+						}
+					}
+
+					@media screen and (min-width: 640px) {
+						img {
+							height: 280px;
+						}
+					}
+
+					@media screen and (min-width: 768px) {
+						img {
+							height: 320px;
+						}
+					}
+
+					@media screen and (min-width: 1024px) {
+						img {
+							height: 450px;
+						}
+					}
+
+					@media screen and (min-width: 1600px) {
+						img {
+							height: 550px;
+						}
+					}
+
+					.pizcru-menu-label {
+						margin-right: 0px;
 					}
 				}
 			}

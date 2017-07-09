@@ -3,6 +3,7 @@ import { Nav, Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AppServiceProvider } from './../providers/app-service/app-service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   templateUrl: 'app.html'
@@ -19,7 +20,8 @@ export class MyApp {
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
-    private appService: AppServiceProvider
+    private appService: AppServiceProvider,
+    private storage: Storage
   ) {
     this.initializeApp();
 
@@ -48,6 +50,8 @@ export class MyApp {
       // this.statusBar.styleDefault();
       // this.splashScreen.hide();
     });
+    this.storage.set('cart', null);
+
   }
 
   openPage(page) {

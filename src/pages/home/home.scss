@@ -3,7 +3,6 @@ page-home {
 
     .slider-container {
         width: 100%;
-        min-height: 200px;
         padding-top: 10px;
         position: relative;
 
@@ -14,10 +13,6 @@ page-home {
             position: absolute;
             right: 0;
             left: 0;
-        }
-
-        img {
-            height: 200px;
         }
 
         .swiper-container-horizontal > .swiper-pagination-bullets {
@@ -49,11 +44,13 @@ page-home {
         background: #fdbc2c;
 
         .subscribe-img{
-            height: 100px;
+            min-height: 100px;
+            max-height: 150px;
             width: 100%;
         }
 
         .subscribe-label {
+            width: 100%;
             position: absolute;
             top: 10%;
             font-size: 2.0em;

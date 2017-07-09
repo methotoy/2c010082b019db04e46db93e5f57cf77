@@ -17,8 +17,7 @@
     <ion-row justify-content-between>
       <ion-col *ngFor="let product of products | async" col-6>
         <ion-card (click)="openProduct(product.iProductId,product.vName)" tappable>
-          <div class="pizcru-menu-image" [style.background-image]="'url(https://pizzacrust.com.pk/public_html/upload/'+ product.vImage +')'"></div>
-          
+          <img src="https://pizzacrust.com.pk/public_html/upload/{{ product.vImage }}">
           <ion-label class="pizcru-menu-label">
             {{ product.vName }}
           </ion-label>

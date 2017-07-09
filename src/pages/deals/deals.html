@@ -18,7 +18,7 @@
     <ion-row responsive-sm wrap>
       <ion-col *ngFor="let deal of deals | async" col-6>
         <ion-card (click)="openProduct(deal.dealID,deal.dealName)" tappable>
-          <div class="pizcru-menu-image" [style.background-image]="'url(https://pizzacrust.com.pk/public_html/upload/'+ deal.dealImage +')'"></div>
+          <img src="https://pizzacrust.com.pk/public_html/upload/{{ deal.dealImage }}">
           <ion-label class="pizcru-menu-label">
             {{ deal.dealName }}
           </ion-label>

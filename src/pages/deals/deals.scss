@@ -11,25 +11,12 @@ page-deals {
 				ion-card {
 					position: relative;
 					text-align: center;
-					height: 180px;
 					background: #151515;
 					box-shadow: 0 2px 0 0 rgba(245, 61, 61, 0.14), 0 3px 1px -2px rgba(245, 61, 61, 0.02), 0 1px 5px 0 rgba(245, 61, 61, 0.12);
 					font-family: 'Abril Fatface';
 
-						.pizcru-menu-image {
-							// background: url('/assets/img/deals_sample.jpeg');
-							background-size: cover;
-							height: 75%;
-						}
-
-						.pizcru-menu-label {
-							margin-right: 0px;
-						}
-
-						@each $menu in 'Pizza' 'Pasta' 'Deserts' 'Appetizer' 'Beverages' 'Deal' 'Sandwiches' {
-						.image-#{$menu} {
-							background-image: url('/assets/img/#{$menu}_sample.png');
-						}
+					.pizcru-menu-label {
+						margin-right: 0px;
 					}
 				}
 			}

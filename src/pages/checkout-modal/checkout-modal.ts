@@ -128,13 +128,13 @@ export class CheckoutModal implements OnInit {
               console.log('Empty Cart Storage');
               this.toastCtrl.create({
                 message: 'Order successfully sent. Check your email for more information.',
-                duration: 2000,
+                duration: 4000,
                 position: 'bottom'
               }).present();
             } else {
               this.toastCtrl.create({
                 message: 'There was an error occured! Please try again!',
-                duration: 2000,
+                duration: 4000,
                 position: 'bottom'
               }).present();
             }
