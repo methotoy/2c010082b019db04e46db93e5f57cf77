@@ -63,6 +63,10 @@ page-product-details {
         ion-icon {
           color: #fdbc2c;
         }
+
+        ion-label.label-md {
+          padding-top: 5px;
+        }
       }
 
       .item-md.size-selected, .item-ios.size-selected {

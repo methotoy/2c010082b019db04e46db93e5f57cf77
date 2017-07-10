@@ -21,6 +21,18 @@ page-checkout-modal {
         border: none !important;
         box-shadow: none !important;
 
+        ion-label.label-md {
+          padding-top: 5px;
+        }
+
+        input.text-input-md {
+          padding-top: 5px;
+        }
+
+        ion-select .select-text {
+          padding-top: 5px;
+        }
+
         .text-input {
           text-align: right;
         }
