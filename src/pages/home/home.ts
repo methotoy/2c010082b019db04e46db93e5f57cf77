@@ -82,7 +82,6 @@ export class HomePage implements OnInit {
 
     link = link.replace("https://pizzacrust.com.pk/", "");
     if (link.includes('id') && (link = link.replace("deals.php?id=", ""))) {
-      this.dealService.loadAll();
       this.navCtrl.push('DealsPage', { productId: link, prevPageTitle: 'Home' });
       this.navCtrl.canGoBack();
       this.navCtrl.canSwipeBack();

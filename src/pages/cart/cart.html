@@ -46,7 +46,7 @@
   </ion-card>
 </ion-content>
 
-<ion-footer *ngIf="itemsHasData" >
+<ion-footer [style.opacity]="itemsHasData? '100' : '0'">
   <button full ion-button color="primary" (click)="checkout()" [disabled]="!items">
     CHECKOUT
   </button>

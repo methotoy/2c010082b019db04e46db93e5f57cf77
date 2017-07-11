@@ -7,6 +7,7 @@ import { DealServiceProvider } from './../../providers/deal-service/deal-service
 import { Product } from './../../models/product.interface';
 import { Deal } from './../../models/deal.interface';
 import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/from';
 
 /**
@@ -39,6 +40,7 @@ export class ProductDetailsPage implements OnInit {
   public limitDeal: any[] = [];
   private dealImage: string = null;
   private dealPrice: string | number;
+  private subscription: Subscription;
 
   @ViewChild(PizcruHeaderComponent)
   private pizcruHeaderComponent: PizcruHeaderComponent
@@ -64,25 +66,28 @@ export class ProductDetailsPage implements OnInit {
       this.product = Observable.from(this.dealService.deals)
         .mergeAll()
         .filter((data) => data.dealID === this.productId);
+      
+      let processCount = 0;
 
-      Observable.from(this.dealService.deals)
-        .flatMap((res) => res)
+      this.subscription = Observable.from(this.product)
         .filter((data) => data.dealID === this.productId)
-        .subscribe(
-        (data) => {
-          this.limitDeal = data.numberofitem;
-          this.dealImage = data.dealImage;
-          this.dealPrice = data.dealPrice;
-          if (typeof data.cateid) {
-            for (let key in data.cateid) {
-              if (data.cateid.hasOwnProperty(key) && data.cateid[key].length > 0) {
-                for (let i = 0; i < parseInt(data.numberofitem[data.cateid[key]]); i++) {
-                  this.selectedDeal.push({ id: data.cateid[key], productId: null, productName: null });
+        .subscribe((data) => {
+          if(processCount === 0) {
+            this.limitDeal = data.numberofitem;
+            this.dealImage = data.dealImage;
+            this.dealPrice = data.dealPrice;
+            if (typeof data.cateid) {
+              for (let key in data.cateid) {
+                if (data.cateid.hasOwnProperty(key) && data.cateid[key].length > 0) {
+                  for (let i = 0; i < parseInt(data.numberofitem[data.cateid[key]]); i++) {
+                    this.selectedDeal.push({ id: data.cateid[key], productId: null, productName: null });
+                  }
                 }
               }
             }
+            processCount++;
           }
-        }
+        }, (error) => console.error(error)
         );
     } else {
       this.product = Observable.from(this.productService.product)

@@ -101,7 +101,7 @@
   </ion-card>
 </ion-content>
 
-<ion-footer *ngIf="builderHasData" >
+<ion-footer [style.opacity]="builderHasData? '100' : '0'">
   <button full ion-button color="primary" (click)="showOrder()">
     SHOW ORDER
   </button>
