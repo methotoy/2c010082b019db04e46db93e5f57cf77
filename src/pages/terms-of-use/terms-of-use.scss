@@ -1,3 +1,29 @@
 page-terms-of-use {
+  font-family: 'Josefin Sans', Helvetica, sans-serif;
+
+  .main-body {
+
+    ion-card {
+      background: rgba(0,0,0,0.7);
+      
+      span {
+        h2.text-center {
+          margin-bottom: 20px;
+          font-size: 25px;
+        }
+
+        h2,h3 {
+          color: #fdbc2c;
+          font-size: 20px;
+          font-family: 'Abril Fatface';
+        }
+
+        p {
+          color: white;
+        }
+      }
+    }
+
+  }
 
 }
