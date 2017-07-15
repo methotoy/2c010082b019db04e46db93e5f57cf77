@@ -27,4 +27,9 @@ export class AppServiceProvider extends BaseProvider {
       .map((res: Response) => res.json());
   }
 
+  postSendEmail(data) {
+    return this.post('/cms/sendEmail.php',JSON.stringify(data))
+      .map((res: Response) => res.json());
+  }
+
 }

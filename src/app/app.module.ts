@@ -4,6 +4,10 @@ import { HttpModule } from '@angular/http';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { IonicStorageModule } from '@ionic/storage';
+import { CallNumber } from '@ionic-native/call-number';
+import { InAppBrowser } from '@ionic-native/in-app-browser';
+import { AppAvailability } from '@ionic-native/app-availability';
+
 
 import { MyApp } from './app.component';
 
@@ -49,7 +53,10 @@ import { AppServiceProvider } from '../providers/app-service/app-service';
     DealServiceProvider,
     BuilderServiceProvider,
     BranchServiceProvider,
-    AppServiceProvider
+    AppServiceProvider,
+    CallNumber,
+    InAppBrowser,
+    AppAvailability
   ]
 })
 export class AppModule { }

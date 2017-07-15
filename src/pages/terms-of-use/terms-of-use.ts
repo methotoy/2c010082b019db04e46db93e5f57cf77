@@ -47,15 +47,6 @@ export class TermsOfUsePage implements OnInit {
         let responseData = (response && response.length > 0) ? response[0] : response;
         if (typeof (responseData) && 'cmsContent' in responseData) {
           this.termsOfUseData = responseData.cmsContent.split('..').join('https://pizzacrust.com.pk');
-          this.termsOfUseData = this.termsOfUseData.split('<p>&nbsp;</p>').join('');
-          this.termsOfUseData = this.termsOfUseData.split('Website').join('Mobile Application');
-          this.termsOfUseData = this.termsOfUseData.split('Web site').join('Mobile Application');
-          this.termsOfUseData = this.termsOfUseData.split('by clicking on the “Terms of Use” located at the bottom of the pages').join("on 'Terms of Use' page");
-          this.termsOfUseData = this.termsOfUseData.split('AND/OR VISITING THIS WEBSITE').join("THIS MOBILE APPLICATION");
-          this.termsOfUseData = this.termsOfUseData.split('Pizzacrust.com.pk domain name').join("application");
-          this.termsOfUseData = this.termsOfUseData.split('computer').join("device");
-          this.termsOfUseData = this.termsOfUseData.split('web site').join("application");
-          this.termsOfUseData = this.termsOfUseData.split('website').join("application");
         }
       },
       (error) => console.error(error)

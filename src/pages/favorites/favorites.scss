@@ -1,0 +1,50 @@
+page-favorites {
+  font-family: 'Josefin Sans', Helvetica, sans-serif;
+
+  ion-card {
+    background: rgba(0,0,0,0.6) !important;
+
+    ion-item {
+      background: transparent !important;
+      color: white !important;
+      
+      &.item-ios, &.item-md {
+        padding-left: 0px;
+      }
+
+      ion-label {
+        h2 {
+          color: #fdbc2c !important; 
+        }
+
+        p.product {
+          color: #fff;
+        }
+
+        p > span {
+          color: #d94f2b;
+        }
+      }
+    }
+
+    ion-item-divider {
+      font-family: 'Fredericka the Great';
+      font-size: 20px !important;
+      background: transparent !important;
+      color: #d94f2b !important;
+      border-bottom: none !important;
+      border-top: 1px solid #dedede;
+      text-align: right;
+      padding: 0px !important;
+    }
+  }
+
+  ion-footer {
+    button[ion-button]{
+      color: white;
+      height: 4em;
+      padding: 0;
+      margin: 0;
+    }
+  }
+}

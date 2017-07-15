@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>
+      Send us an email
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary" showWhen="ios">Close</span>
+        <ion-icon name="md-close" showWhen="android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="main-body">
+  <ion-card padding>
+    <ion-list>
+
+      <ion-item>
+        <ion-label floating>Your Name <span [style.color]="'red'">*</span></ion-label>
+        <ion-input type="text" [(ngModel)]="name"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Email <span [style.color]="'red'">*</span></ion-label>
+        <ion-input type="email" [(ngModel)]="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Subject <span [style.color]="'red'">*</span></ion-label>
+        <ion-input type="text" [(ngModel)]="subject"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label floating>Your Message <span [style.color]="'red'">*</span></ion-label>
+        <ion-textarea [(ngModel)]="message"></ion-textarea>
+      </ion-item>
+
+    </ion-list>
+  </ion-card>
+</ion-content>
+
+<ion-footer>
+	<button full ion-button color="primary" (click)="sendEmail()" [disabled]="!validFields() || submitEmail">
+    Send Email
+  </button>
+</ion-footer>

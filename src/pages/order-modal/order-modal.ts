@@ -188,4 +188,63 @@ export class OrderModal {
 		});
 	}
 
+	addToFavorites() {
+		let loading = this.loadingCtrl.create({
+			content: 'Please wait...'
+		})
+
+		loading.present();
+
+		let selectedItems = [];
+		if (this.size) {
+			selectedItems.push({ productName: `Crust Size: ${this.size[0].bName} ${this.size[0].bDescription}`, });
+		}
+		if (this.sauce) {
+			for (let index in this.sauce) {
+				selectedItems.push({ productName: `Sauce: ${this.sauce[index].bName} x ${this.sauce[index].quantity || 1}`, });
+			}
+		}
+		if (this.cheese) {
+			for (let index in this.cheese) {
+				selectedItems.push({ productName: `Cheese: ${this.cheese[index].bName} x ${this.cheese[index].quantity || 1}`, });
+			}
+		}
+		if (this.topping) {
+			for (let index in this.topping) {
+				selectedItems.push({ productName: `Topping: ${this.topping[index].bName} x ${this.topping[index].quantity || 1}`, });
+			}
+		}
+
+		let storageData = [];
+		let dealData = {
+			id: new Date().getTime() + '-032814',
+			product: 'Pizza Builder',
+			price: this.totalPrice() || 0,
+			image: 'logo',
+			itemSelected: selectedItems,
+			quantity: 1
+		};
+
+		this.strg.get('favorites').then((result) => {
+			if (result) {
+				storageData = JSON.parse(result);
+				storageData.push(dealData);
+				this.strg.set('favorites', JSON.stringify(storageData));
+			} else {
+				storageData.push(dealData);
+				this.strg.set('favorites', JSON.stringify(storageData));
+			}
+
+			setTimeout(() => {
+				this.navCtrl.push('FavoritesPage', { prevPage: 'Order' });
+				this.navCtrl.canGoBack();
+				this.navCtrl.canSwipeBack();
+			}, 1500);
+
+			setTimeout(() => {
+				loading.dismiss();
+			}, 2000);
+		});
+	}
+
 }

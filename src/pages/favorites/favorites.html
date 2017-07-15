@@ -1,0 +1,50 @@
+<ion-header>
+	<pizcru-header
+    [pageTitle]="pageTitle"
+    [filter]="false"
+    [productType]="'wala'"
+    [prevPageTitle]="prevPage">
+  </pizcru-header>
+</ion-header>
+
+
+<ion-content no-padding class="main-body">
+  <div class="page-preloader" [@fade]="(itemsHasData)? 'invisible' : 'visible'">
+    <span class="spinner"></span>        
+  </div>
+  <ion-card>
+    <ion-card-content>
+      <ion-item-group *ngIf="itemsHasData && items; else noData" >
+        <ion-item *ngFor="let item of items">
+          <ion-thumbnail item-start>
+            <img src="{{ (item?.image === 'logo')? 'https://pizzacrust.com.pk/assets/img/logo_mod-a.png' : 'https://pizzacrust.com.pk/public_html/upload/'+ item?.image }}" width="50">
+          </ion-thumbnail>
+          <h2>{{ item?.product }}</h2>
+          <p class="product" *ngIf="item.size; else selectedItem" >{{ item.size }}</p>
+          <ng-template #selectedItem>
+            <p class="product" *ngFor="let selected of item?.itemSelected">
+              {{ selected?.productName }}
+            </p>
+          </ng-template>
+          <p><span>{{ item?.quantity || 1 }} x</span> Rs {{ item?.price }}</p>
+          <button ion-button clear item-end color="danger" (click)="remove(item.id)">Remove</button>
+        </ion-item>
+      </ion-item-group>
+      <ng-template #noData>
+        <ion-item-group>
+          <ion-item [style.text-align]="'center'">
+            <ion-label>
+              No favorites selected
+            </ion-label>
+          </ion-item>
+        </ion-item-group>
+      </ng-template>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+
+<ion-footer [style.opacity]="itemsHasData? '100' : '0'">
+  <button full ion-button color="primary" (click)="order()" [disabled]="!items">
+    ORDER
+  </button>
+</ion-footer>

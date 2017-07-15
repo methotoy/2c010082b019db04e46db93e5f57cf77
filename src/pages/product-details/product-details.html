@@ -47,7 +47,7 @@
             Add to cart
           </button>
 
-          <button ion-button block color="primary">
+          <button ion-button block color="primary" (click)="productAddToFavorites()">
             <ion-icon name="star"></ion-icon>
             Add to favorites
           </button>
@@ -94,7 +94,7 @@
             Add to cart
           </button>
 
-          <button ion-button block color="primary" [disabled]="productType === 'deals' && checkLimit()">
+          <button ion-button block color="primary" (click)="dealAddToFavorites()" [disabled]="productType === 'deals' && checkLimit()">
             <ion-icon name="star"></ion-icon>
             Add to favorites
           </button>

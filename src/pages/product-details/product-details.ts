@@ -1,4 +1,3 @@
-import { PizcruHeaderComponent } from './../../components/pizcru-header/pizcru-header';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonicPage, ViewController, NavParams, Platform, NavController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
@@ -9,6 +8,7 @@ import { Deal } from './../../models/deal.interface';
 import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/observable/from';
+import { PizcruHeaderComponent } from './../../components/pizcru-header/pizcru-header';
 
 /**
  * Generated class for the ProductDetailsPage page.
@@ -249,6 +249,86 @@ export class ProductDetailsPage implements OnInit {
 
       setTimeout(() => {
         this.pizcruHeaderComponent.openCart();
+      }, 1500);
+
+      setTimeout(() => {
+        loading.dismiss();
+      }, 2000);
+    });
+  }
+
+  dealAddToFavorites() {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    })
+
+    loading.present();
+
+    let storageData = [];
+    let dealData = {
+      id: new Date().getTime(),
+      product: this.productName || null,
+      price: this.dealPrice || 0,
+      image: this.dealImage,
+      itemSelected: this.selectedDeal,
+      quantity: 1
+    };
+
+    this.strg.get('favorites').then((result) => {
+      if (result) {
+        storageData = JSON.parse(result);
+        storageData.push(dealData);
+        this.strg.set('favorites', JSON.stringify(storageData));
+      } else {
+        storageData.push(dealData);
+        this.strg.set('favorites', JSON.stringify(storageData));
+      }
+
+      setTimeout(() => {
+        this.pizcruHeaderComponent.openFavorites();
+      }, 1500);
+
+      setTimeout(() => {
+        loading.dismiss();
+      }, 2000);
+    });
+  }
+
+  productAddToFavorites() {
+    let loading = this.loadingCtrl.create({
+      content: 'Please wait...'
+    })
+
+    loading.present();
+
+    let storageData = [];
+    let productData = {
+      id: `${this.productId}-${this.sizeSelected || null}`,
+      product: this.productName || null,
+      price: this.productPrice || 0,
+      image: this.productImage,
+      size: this.sizeSelected || 0,
+      quantity: this.quantitySelected || 0
+    };
+
+    this.strg.get('favorites').then((result) => {
+      if (result) {
+        storageData = JSON.parse(result);
+        let existProd = storageData.findIndex(item => item.id === productData.id);
+
+        if (existProd > -1) {
+          storageData[existProd].quantity += productData.quantity
+        } else {
+          storageData.push(productData);
+        }
+        this.strg.set('favorites', JSON.stringify(storageData));
+      } else {
+        storageData.push(productData);
+        this.strg.set('favorites', JSON.stringify(storageData));
+      }
+
+      setTimeout(() => {
+        this.pizcruHeaderComponent.openFavorites();
       }, 1500);
 
       setTimeout(() => {

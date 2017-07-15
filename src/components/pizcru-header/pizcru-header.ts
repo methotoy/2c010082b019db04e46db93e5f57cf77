@@ -72,4 +72,10 @@ export class PizcruHeaderComponent implements OnInit {
 		this.navCtrl.canSwipeBack();
   }
 
+  openFavorites() {
+    this.navCtrl.push('FavoritesPage', { prevPage: this.pageTitle });
+		this.navCtrl.canGoBack();
+		this.navCtrl.canSwipeBack();
+  }
+
 }
