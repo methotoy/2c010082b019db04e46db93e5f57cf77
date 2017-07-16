@@ -24,11 +24,11 @@
 		</ng-template>
 	</div>
 
-	<ion-card no-padding class="banner-container" *ngFor="let banner of banners | async" (click)="clickSlider(banner)">
+	<div class="banner-container" *ngFor="let banner of banners | async" (click)="clickSlider(banner)">
 		<img src="https://pizzacrust.com.pk/public_html/main-slider/{{ banner?.bannerImage }}" />
-	</ion-card>
+	</div>
 
-	<ion-card class="subscribe-container">
+	<div class="subscribe-container">
 		<div class="subscribe-img">
 			<img src="assets/media/pattern-1.png" />
 		</div>
@@ -40,5 +40,5 @@
 		<div class="subscribe-btn" padding>
 			<button ion-button full color="secondary" (click)="signUp()">SIGN UP NOW!</button>
 		</div>
-	</ion-card>
+	</div>
 </ion-content>

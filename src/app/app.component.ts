@@ -1,14 +1,16 @@
-import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AppServiceProvider } from './../providers/app-service/app-service';
 import { Storage } from '@ionic/storage';
+import { Network } from '@ionic-native/network';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp {
+export class MyApp implements OnInit, OnDestroy {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: string = 'HomePage';
@@ -16,12 +18,16 @@ export class MyApp {
   mainPages: any[] = [];
   otherPages: any[] = [];
 
+  private disconnectSubscription: Subscription;
+
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     private appService: AppServiceProvider,
-    private storage: Storage
+    private storage: Storage,
+    private network: Network,
+    private alertCtrl: AlertController
   ) {
     this.initializeApp();
 
@@ -43,20 +49,36 @@ export class MyApp {
 
   }
 
+  ngOnInit() {
+    this.disconnectSubscription = this.network.onDisconnect().subscribe(() => {
+      let alert = this.alertCtrl.create({
+        title: 'Network Disconnected!',
+        message: 'You have been disconnected to your network!',
+        buttons: [
+          {
+            text: 'Ok',
+            role: 'cancel'
+          }
+        ]
+      });
+      alert.present();
+    });
+  }
+
   initializeApp() {
     this.platform.ready().then(() => {
-      // Okay, so the platform is ready and our plugins are available.
-      // Here you can do any higher level native things you might need.
-      // this.statusBar.styleDefault();
-      // this.splashScreen.hide();
+      this.statusBar.styleDefault();
+      this.splashScreen.hide();
     });
     this.storage.set('cart', null);
 
   }
 
   openPage(page) {
-    // Reset the content nav to have just this page
-    // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);
+  }
+
+  ngOnDestroy() {
+    this.disconnectSubscription.unsubscribe();
   }
 }

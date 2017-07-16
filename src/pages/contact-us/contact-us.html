@@ -9,9 +9,11 @@
 
 
 <ion-content no-padding class="main-body">
-   <ion-card padding>
-    <iframe [src]="googleMap()" allowfullscreen="allowfullscreen" width="100%" height="400" frameborder="0"></iframe>
-  </ion-card> 
+  <ion-card padding>
+    <agm-map [latitude]="lat" [longitude]="long" [zoom]="18">
+      <agm-marker [latitude]="lat" [longitude]="long"></agm-marker>
+    </agm-map>
+  </ion-card>
 
   <ion-card padding>
     <ion-label>Branch Address</ion-label>

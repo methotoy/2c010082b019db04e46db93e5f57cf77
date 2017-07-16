@@ -6,6 +6,10 @@ page-contact-us {
     ion-card {
       background: rgba(0,0,0,0.7);
 
+      agm-map {
+        height: 300px;
+      }
+
       > ion-label {
         font-family: 'Abril Fatface';
         font-size: 20px;
