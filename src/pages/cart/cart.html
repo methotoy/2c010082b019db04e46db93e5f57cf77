@@ -47,7 +47,7 @@
 </ion-content>
 
 <ion-footer [style.opacity]="itemsHasData? '100' : '0'">
-  <button full ion-button color="primary" (click)="checkout()" [disabled]="!items">
+  <button full ion-button color="primary" (click)="checkout()" [disabled]="!items || belowMinimum">
     CHECKOUT
   </button>
 </ion-footer>

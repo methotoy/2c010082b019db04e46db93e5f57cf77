@@ -35,6 +35,8 @@ export class CartPage implements OnInit {
 	public prevPage: string = null;
 	public total: number = 0;
 
+	public belowMinimum: boolean = true;
+
 	constructor(
 		private storage: Storage,
 		private alertCtrl: AlertController,
@@ -59,6 +61,9 @@ export class CartPage implements OnInit {
 				this.itemsHasData = true;
 				for (let index in this.items) {
 					this.total += (parseInt(this.items[index].price) * parseInt(this.items[index].quantity));
+					if(this.total > 499) {
+						this.belowMinimum = false;
+					}
 				}
 			}
 		);
