@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { CartPage } from './cart';
 import { PizcruHeaderComponentModule } from './../../components/pizcru-header/pizcru-header.module';
+import { NetworkConnectionComponentModule } from './../../components/network-connection/network-connection.module';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { PizcruHeaderComponentModule } from './../../components/pizcru-header/pi
   ],
   imports: [
     IonicPageModule.forChild(CartPage),
-    PizcruHeaderComponentModule
+    PizcruHeaderComponentModule,
+    NetworkConnectionComponentModule
   ],
   exports: [
     CartPage

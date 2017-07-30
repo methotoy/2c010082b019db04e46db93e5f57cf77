@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { HomePage } from './home';
-import { NetworkConnectionComponentModule } from './../../components/network-connection/network-connection.module'
+import { NetworkConnectionComponentModule } from './../../components/network-connection/network-connection.module';
 
 @NgModule({
   declarations: [

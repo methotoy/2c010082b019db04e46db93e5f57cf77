@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { FavoritesPage } from './favorites';
 import { PizcruHeaderComponentModule } from './../../components/pizcru-header/pizcru-header.module';
+import { NetworkConnectionComponentModule } from './../../components/network-connection/network-connection.module';
 
 @NgModule({
   declarations: [
@@ -9,7 +10,8 @@ import { PizcruHeaderComponentModule } from './../../components/pizcru-header/pi
   ],
   imports: [
     IonicPageModule.forChild(FavoritesPage),
-    PizcruHeaderComponentModule
+    PizcruHeaderComponentModule,
+    NetworkConnectionComponentModule
   ],
   exports: [
     FavoritesPage

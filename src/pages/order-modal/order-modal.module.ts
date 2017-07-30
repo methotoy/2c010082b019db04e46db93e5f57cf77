@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { OrderModal } from './order-modal';
+import { NetworkConnectionComponentModule } from './../../components/network-connection/network-connection.module';
 
 @NgModule({
   declarations: [
@@ -8,6 +9,7 @@ import { OrderModal } from './order-modal';
   ],
   imports: [
     IonicPageModule.forChild(OrderModal),
+    NetworkConnectionComponentModule
   ],
   exports: [
     OrderModal
