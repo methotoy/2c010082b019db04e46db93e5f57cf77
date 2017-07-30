@@ -3,10 +3,7 @@ import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AppServiceProvider } from './../providers/app-service/app-service';
-import { Storage } from '@ionic/storage';
-import { Subscription } from 'rxjs/Subscription';
-
-import { NetConProvider } from './../providers/net-con/net-con';
+import { Storage } from '@ionic/storage'; 
 
 @Component({
   templateUrl: 'app.html'
