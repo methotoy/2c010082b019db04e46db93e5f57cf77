@@ -1,16 +1,17 @@
-import { Component, ViewChild, OnInit, OnDestroy } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform, AlertController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { AppServiceProvider } from './../providers/app-service/app-service';
 import { Storage } from '@ionic/storage';
-import { Network } from '@ionic-native/network';
 import { Subscription } from 'rxjs/Subscription';
+
+import { NetConProvider } from './../providers/net-con/net-con';
 
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp implements OnInit, OnDestroy {
+export class MyApp {
   @ViewChild(Nav) nav: Nav;
 
   rootPage: string = 'HomePage';
@@ -18,15 +19,12 @@ export class MyApp implements OnInit, OnDestroy {
   mainPages: any[] = [];
   otherPages: any[] = [];
 
-  private disconnectSubscription: Subscription;
-
   constructor(
     public platform: Platform,
     public statusBar: StatusBar,
     public splashScreen: SplashScreen,
     private appService: AppServiceProvider,
     private storage: Storage,
-    private network: Network,
     private alertCtrl: AlertController
   ) {
     this.initializeApp();
@@ -49,22 +47,6 @@ export class MyApp implements OnInit, OnDestroy {
 
   }
 
-  ngOnInit() {
-    this.disconnectSubscription = this.network.onDisconnect().subscribe(() => {
-      let alert = this.alertCtrl.create({
-        title: 'Network Disconnected!',
-        message: 'You have been disconnected to your network!',
-        buttons: [
-          {
-            text: 'Ok',
-            role: 'cancel'
-          }
-        ]
-      });
-      alert.present();
-    });
-  }
-
   initializeApp() {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
@@ -78,7 +60,4 @@ export class MyApp implements OnInit, OnDestroy {
     this.nav.setRoot(page.component);
   }
 
-  ngOnDestroy() {
-    this.disconnectSubscription.unsubscribe();
-  }
 }

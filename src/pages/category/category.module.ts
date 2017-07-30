@@ -7,7 +7,7 @@ import { CategoryPage } from './category';
     CategoryPage
   ],
   imports: [
-    IonicPageModule.forChild(CategoryPage),
+    IonicPageModule.forChild(CategoryPage)
   ],
   exports: [
     CategoryPage

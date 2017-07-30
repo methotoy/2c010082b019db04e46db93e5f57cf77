@@ -10,7 +10,7 @@
 </ion-header>
 
 <ion-content class="main-body">
-  <div class="page-preloader" [@fade]="(productService.hasData)? 'invisible' : 'visible'">
+  <div class="page-preloader" [@fade]="(productService.hasData && productName)? 'invisible' : 'visible'">
     <span class="spinner"></span>        
   </div>
   <ion-grid>

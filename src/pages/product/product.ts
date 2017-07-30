@@ -3,6 +3,8 @@ import { IonicPage, NavController, NavParams, ViewController, Platform } from 'i
 import { trigger, state, style, transition, animate } from '@angular/animations';
 
 import { ProductServiceProvider } from './../../providers/product-service/product-service';
+import { CategoryServiceProvider }  from './../../providers/category-service/category-service';
+
 import { Observable } from 'rxjs';
 import { Product } from './../../models/product.interface';
 
@@ -30,7 +32,7 @@ import { Product } from './../../models/product.interface';
 })
 export class ProductPage implements OnInit {
 	public productId: number | string;
-	public productName: string;
+	public productName: string = null;
 	public prevPageTitle: string;
 	public selectedFilterId: number = 1;
 
@@ -41,7 +43,8 @@ export class ProductPage implements OnInit {
 		private navParams: NavParams,
 		private viewCtrl: ViewController,
 		private plt: Platform,
-		public productService: ProductServiceProvider
+		public productService: ProductServiceProvider,
+		private categoryService: CategoryServiceProvider
 	) {
 		this.productId = navParams.get('productId');
 		this.productName = navParams.get('productName');
@@ -49,7 +52,30 @@ export class ProductPage implements OnInit {
 	}
 
 	ngOnInit() {
-		this.productService.loadProduct(this.productId);
+		if(this.productName) {
+			this.productService.loadProduct(this.productId);
+		} else {
+			this.categoryService.loadAll();
+			Observable.of(this.categoryService.category)
+				.flatMap(
+					(data) => data
+				)
+				.subscribe(
+					(response) => {
+						if(response) {
+							let filterResponse = response.filter(
+								(item) => item.iCategoryId === this.productId
+							);
+
+							if(filterResponse.length > 0) {
+								this.productName = filterResponse["0"].vName;
+							}
+						}
+					}
+				);
+			this.productService.loadProduct(this.productId);
+		}
+
 		this.filter(1);
 	}
 

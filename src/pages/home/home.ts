@@ -68,21 +68,24 @@ export class HomePage implements OnInit {
     if (data) {
       link = data.bannerLink;
     } else {
-      let sliderNumber = this.slides.getActiveIndex() - 1;
-      if (this.slides.getActiveIndex() === 4) {
-        sliderNumber = 0;
-      } else if (this.slides.getActiveIndex() === 0) {
-        sliderNumber = 2;
+      if (this.slides._isEnd) {
+        link =  this.sliderData[0].bannerLink;
+      } else if (this.slides._isBeginning) {
+        link =  this.sliderData[this.sliderData.length - 1].bannerLink;
+      } else {
+        link =  this.sliderData[this.slides._activeIndex - 1].bannerLink;
       }
-
-      if (this.sliderData.length > 0 && this.sliderData[sliderNumber]) {
-        link = this.sliderData[sliderNumber].bannerLink;
-      }
+      console.log('No Data!');
     }
-
+    
     link = link.replace("https://pizzacrust.com.pk/", "");
+    
     if (link.includes('id') && (link = link.replace("deals.php?id=", ""))) {
       this.navCtrl.push('DealsPage', { productId: link, prevPageTitle: 'Home' });
+      this.navCtrl.canGoBack();
+      this.navCtrl.canSwipeBack();
+    } else if (link.includes('cat') && (link = link.replace("filter.php?cat=", ""))) {
+      this.navCtrl.push('ProductPage', { productId: link, prevPageTitle: 'Categories' });
       this.navCtrl.canGoBack();
       this.navCtrl.canSwipeBack();
     } else {

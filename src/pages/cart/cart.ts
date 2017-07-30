@@ -61,7 +61,7 @@ export class CartPage implements OnInit {
 				this.itemsHasData = true;
 				for (let index in this.items) {
 					this.total += (parseInt(this.items[index].price) * parseInt(this.items[index].quantity));
-					if(this.total > 499) {
+					if (this.total > 499) {
 						this.belowMinimum = false;
 					}
 				}
@@ -85,8 +85,15 @@ export class CartPage implements OnInit {
 						this.total = 0;
 						for (let index in this.items) {
 							this.total += (parseInt(this.items[index].price) * parseInt(this.items[index].quantity));
+
+							if (this.total > 499) {
+								this.belowMinimum = false;
+							} else {
+								this.belowMinimum = true;
+							}
 						}
-						if(this.items.length > 0) {
+
+						if (this.items.length > 0) {
 							this.storage.set('cart', JSON.stringify(this.items));
 						} else {
 							this.items = null;
@@ -103,7 +110,7 @@ export class CartPage implements OnInit {
 		let checkOutModal = this.modalCtrl.create('CheckoutModal');
 		checkOutModal.present();
 		checkOutModal.onDidDismiss(data => {
-			if(data && typeof data === 'object' && 'emptyCart' in data && data.emptyCart) {
+			if (data && typeof data === 'object' && 'emptyCart' in data && data.emptyCart) {
 				this.loadCart();
 				this.total = 0;
 			}

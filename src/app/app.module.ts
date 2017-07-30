@@ -25,12 +25,14 @@ import { DealServiceProvider } from '../providers/deal-service/deal-service';
 import { BuilderServiceProvider } from '../providers/builder-service/builder-service';
 import { BranchServiceProvider } from '../providers/branch-service/branch-service';
 import { AppServiceProvider } from '../providers/app-service/app-service';
+// import { NetworkConnectionComponent } from '../components/network-connection/network-connection';
+import { NetConProvider } from '../providers/net-con/net-con';
 
 @NgModule({
   declarations: [
     MyApp,
     FilterPopOverComponent
-  ],
+ ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -44,7 +46,7 @@ import { AppServiceProvider } from '../providers/app-service/app-service';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    FilterPopOverComponent
+    FilterPopOverComponent,
   ],
   providers: [
     StatusBar,
@@ -61,7 +63,8 @@ import { AppServiceProvider } from '../providers/app-service/app-service';
     CallNumber,
     InAppBrowser,
     AppAvailability,
-    Network
+    Network,
+    NetConProvider
   ]
 })
 export class AppModule { }
