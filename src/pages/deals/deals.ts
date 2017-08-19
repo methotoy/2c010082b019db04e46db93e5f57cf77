@@ -31,7 +31,7 @@ import { Deal } from './../../models/deal.interface';
 export class DealsPage implements OnInit {
 
   public deals: Observable<Deal[]>;
-  public selectedFilterId: number = 1;
+  public selectedFilterId: number = -1;
 
   public pageTitle: string = 'Deals';
   public prevPageTitle: string = null;
@@ -68,7 +68,7 @@ export class DealsPage implements OnInit {
     if(id){
 			let filterId = parseInt(id);
 			if(this.selectedFilterId !== filterId) {
-				if(this.selectedFilterId !== filterId && filterId !== 1) {
+				if(this.selectedFilterId !== filterId && filterId !== -1) {
 					this.deals = Observable.from(this.dealService.deals)
 						.map((data) => data.filter(a => a.dealFilter === filterId.toString()));
 					} else {	
