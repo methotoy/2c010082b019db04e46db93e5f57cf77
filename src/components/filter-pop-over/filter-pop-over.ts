@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
     `<ion-list radio-group [(ngModel)]="selectedValue" style="margin-bottom:0;">
       <ion-item>
         <ion-label>All</ion-label>
-        <ion-radio value="1" (click)="closePopOver(1)" checked="1 === selectedValue"></ion-radio>
+        <ion-radio value="-1" (click)="closePopOver(-1)" checked="-1 === selectedValue"></ion-radio>
       </ion-item>
 
       <ion-item *ngFor="let item of (filterItems | async)">
