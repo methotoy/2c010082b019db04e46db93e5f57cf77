@@ -34,7 +34,7 @@ export class ProductPage implements OnInit {
 	public productId: number | string;
 	public productName: string = null;
 	public prevPageTitle: string;
-	public selectedFilterId: number = 1;
+	public selectedFilterId: number = -1;
 
 	public products: Observable<Product[]>;
 
@@ -76,7 +76,7 @@ export class ProductPage implements OnInit {
 			this.productService.loadProduct(this.productId);
 		}
 
-		this.filter(1);
+		this.filter(-1);
 	}
 
 	ionViewDidLoad() {
@@ -96,7 +96,7 @@ export class ProductPage implements OnInit {
 		if (id) {
 			let filterId = parseInt(id);
 			if (this.selectedFilterId !== filterId) {
-				if (this.selectedFilterId !== filterId && filterId !== 1) {
+				if (this.selectedFilterId !== filterId && filterId !== -1) {
 					this.products = Observable.from(this.productService.product)
 						.map((data) => data.filter(a => a.Product_type === filterId.toString()));
 				} else {
