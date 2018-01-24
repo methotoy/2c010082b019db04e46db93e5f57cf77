@@ -4,7 +4,7 @@ import { Http } from '@angular/http';
 @Injectable()
 export class BaseProvider {
 	
-	private baseApiUrl: string = 'http://api.pizzacrust.com.pk';
+	private baseApiUrl: string = 'http://api.secret.com.pk';
 	
 	//private authToken: string = '';
 
